@@ -124,7 +124,9 @@ export const services: Service[] = [
   },
 ];
 
-export const process = [
+/** The "How it works" steps. Named `processSteps`, not `process`, so it does
+ *  not shadow Node's global `process` inside this module. */
+export const processSteps = [
   {
     step: "01",
     title: "We test your water",

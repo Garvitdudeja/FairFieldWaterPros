@@ -1,4 +1,4 @@
-import { brands, process, reviews, services, stats, symptoms, towns } from "@/lib/site";
+import { brands, processSteps, reviews, services, stats, symptoms, towns } from "@/lib/site";
 import { ICONS, Arrow } from "./Icons";
 
 export function BrandStrip() {
@@ -78,7 +78,7 @@ export function Process() {
         <h2 className="h2 mt-12">Three steps, no pressure pitch</h2>
 
         <div className="grid-3 mt-40">
-          {process.map((item) => (
+          {processSteps.map((item) => (
             <article className="card" key={item.step}>
               <span className="step__num mono">{item.step}</span>
               <h3 className="h3 step__title">{item.title}</h3>
