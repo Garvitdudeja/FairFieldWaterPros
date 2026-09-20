@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.petpooja.com)",
+      "WebFetch(domain:play.google.com)",
+      "WebFetch(domain:apps.apple.com)",
+      "WebFetch(domain:blog.petpooja.com)"
+    ]
+  }
+}
