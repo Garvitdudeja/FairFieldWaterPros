@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { waterSources } from "@/lib/site";
 import { Check } from "./Icons";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -82,10 +83,10 @@ export default function LeadForm() {
 
       <div className="field">
         <label htmlFor="source">Water source</label>
-        <select id="source" name="source" defaultValue="Private well">
-          <option>Private well</option>
-          <option>City water</option>
-          <option>Not sure</option>
+        <select id="source" name="source" defaultValue={waterSources[0]}>
+          {waterSources.map((option) => (
+            <option key={option}>{option}</option>
+          ))}
         </select>
       </div>
 

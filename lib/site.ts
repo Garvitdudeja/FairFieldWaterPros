@@ -242,6 +242,14 @@ export const towns = [
   "Wilton",
 ];
 
+/**
+ * The "Water source" choices in the contact form.
+ *
+ * These must match the options on the "Water Source" field in Zoho CRM
+ * word for word. If they don't, the answer arrives blank on the lead.
+ */
+export const waterSources = ["Private well", "City water", "Not sure"] as const;
+
 /** Equipment brands you carry. Empty by default so no logo row ships blank. */
 export const brands: string[] = [
   // "Kinetico",
