@@ -5,7 +5,8 @@
       "WebFetch(domain:play.google.com)",
       "WebFetch(domain:apps.apple.com)",
       "WebFetch(domain:blog.petpooja.com)",
-      "PowerShell(npm run build)"
+      "PowerShell(npm run build)",
+      "Bash(grep -i \"^sharp$\")"
     ]
   }
 }
