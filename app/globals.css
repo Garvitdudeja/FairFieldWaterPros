@@ -297,6 +297,8 @@ img {
   display: flex;
   align-items: center;
   gap: 24px;
+  /* Below 900px the nav drops to its own row underneath. */
+  flex-wrap: wrap;
 }
 
 .brand {
@@ -340,16 +342,37 @@ img {
   line-height: 1.2;
 }
 
+/* Mobile: a full-width second row under the brand. Only four links, so this
+   is easier to use than a hamburger and needs no JavaScript. */
 .nav {
-  display: none;
+  order: 3;
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: 24px;
-  flex-grow: 1;
+  gap: 4px;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 0 var(--gutter);
+  border-top: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav a {
   font-size: 14px;
   color: var(--slate);
+  padding: 12px 10px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a.is-active {
+  color: var(--navy);
+  font-weight: 500;
+  border-bottom-color: var(--blue);
 }
 
 .header__actions {
@@ -385,7 +408,21 @@ img {
 
 @media (min-width: 900px) {
   .nav {
-    display: flex;
+    order: 0;
+    width: auto;
+    flex-grow: 1;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+    border-top: 0;
+    overflow: visible;
+  }
+  .nav a {
+    padding: 0;
+    border-bottom: 0;
+  }
+  .nav a.is-active {
+    color: var(--blue);
   }
   .header__phone {
     display: inline;
@@ -937,7 +974,9 @@ img {
 /* --- Towns -------------------------------------------------------------- */
 
 .towns {
-  margin-top: 24px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -1082,6 +1121,354 @@ img {
   gap: 8px 24px;
   justify-content: space-between;
   font-size: 13px;
+}
+
+/* --- Inner page header -------------------------------------------------- */
+
+.pagehead {
+  background: var(--canvas);
+  border-bottom: 1px solid var(--border);
+  padding: 40px var(--gutter) 48px;
+}
+
+@media (min-width: 768px) {
+  .pagehead {
+    padding: 56px var(--gutter) 64px;
+  }
+}
+
+.pagehead .h1 {
+  font-size: clamp(30px, 4.4vw, 44px);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.crumbs a {
+  color: var(--muted);
+}
+
+.crumbs a:hover {
+  color: var(--blue);
+}
+
+.crumbs [aria-current="page"] {
+  color: var(--navy);
+}
+
+/* --- Services page ------------------------------------------------------ */
+
+.stack-services {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.service {
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+.service:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.service__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.service__title {
+  font-size: clamp(22px, 2.6vw, 30px);
+}
+
+.service__body {
+  margin-top: 20px;
+}
+
+@media (min-width: 900px) {
+  .service {
+    display: grid;
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+  .service__head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .service__body {
+    margin-top: 0;
+  }
+}
+
+.ticks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 700px) {
+  .ticks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 24px;
+  }
+}
+
+.ticks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--slate);
+}
+
+.ticks svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--blue);
+}
+
+/* --- Why us ------------------------------------------------------------- */
+
+.reason__title {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.reason__title svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--blue);
+}
+
+/* --- FAQ ---------------------------------------------------------------- */
+
+.faq {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq__item:last-child {
+  border-bottom: 0;
+}
+
+.faq__q {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--navy);
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Safari still paints its own disclosure triangle without this. */
+.faq__q::-webkit-details-marker {
+  display: none;
+}
+
+.faq__q:hover {
+  color: var(--blue);
+}
+
+.faq__sign {
+  position: relative;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+}
+
+.faq__sign::before,
+.faq__sign::after {
+  content: "";
+  position: absolute;
+  background: var(--blue);
+  border-radius: 2px;
+}
+
+.faq__sign::before {
+  top: 6px;
+  left: 0;
+  width: 14px;
+  height: 2px;
+}
+
+.faq__sign::after {
+  top: 0;
+  left: 6px;
+  width: 2px;
+  height: 14px;
+  transition: transform 0.15s ease;
+}
+
+.faq__item[open] .faq__sign::after {
+  transform: rotate(90deg);
+}
+
+.faq__a {
+  padding: 0 20px 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--slate);
+  max-width: 78ch;
+}
+
+@media (min-width: 768px) {
+  .faq__q {
+    padding: 20px 24px;
+  }
+  .faq__a {
+    padding: 0 24px 22px;
+  }
+}
+
+/* --- Prose (About) ------------------------------------------------------ */
+
+.prose {
+  max-width: 68ch;
+}
+
+.prose p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--slate);
+}
+
+.prose p + p {
+  margin-top: 18px;
+}
+
+.prose h2 + p {
+  margin-top: 20px;
+}
+
+.prose .lead {
+  color: var(--navy);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.signature {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.signature strong {
+  color: var(--navy);
+}
+
+/* --- Contact page ------------------------------------------------------- */
+
+.contact {
+  display: grid;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    gap: 56px;
+  }
+}
+
+.contact__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.contact__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  background: var(--sky);
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.contact__value {
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--navy);
+}
+
+a.contact__value:hover {
+  color: var(--blue);
+}
+
+.contact__form {
+  background: var(--canvas);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+/* The form supplies its own white card elsewhere; inside this panel it is
+   already on a tinted background, so it sheds the second layer. */
+.contact__form .form {
+  background: transparent;
+  padding: 0;
+}
+
+.notice {
+  background: var(--sky);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #12588f;
 }
 
 /* --- Utilities ---------------------------------------------------------- */

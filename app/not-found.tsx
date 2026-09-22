@@ -3,8 +3,9 @@ import { site } from "@/lib/site";
 
 export default function NotFound() {
   return (
-    <main
-      id="main"
+    // The <main id="main"> wrapper now lives in app/layout.tsx, so this is
+    // just a section inside it.
+    <section
       style={{
         minHeight: "70vh",
         display: "flex",
@@ -29,6 +30,6 @@ export default function NotFound() {
           Call {site.phone}
         </a>
       </div>
-    </main>
+    </section>
   );
 }

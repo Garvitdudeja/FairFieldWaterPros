@@ -1,22 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 import logo from "@/public/logo.jpg";
-import { site } from "@/lib/site";
+import { nav, services, site } from "@/lib/site";
 import { Arrow } from "./Icons";
 
 export function FinalCta() {
   return (
     <section className="cta">
       <div className="cta__inner">
-        <h2>Stop guessing about your water.</h2>
+        <h2>Find out what&rsquo;s in your water</h2>
         <p>
-          A free test takes about twenty minutes and tells you exactly what, if anything,
-          needs fixing.
+          An on-site test takes about twenty minutes and tells you what, if anything, needs
+          treating — with the numbers to back it up.
         </p>
         <div className="btn-row">
-          <a className="btn btn--onDark" href="#free-water-test">
-            Book a free water test
+          <Link className="btn btn--onDark" href="/contact">
+            Request a water test
             <Arrow />
-          </a>
+          </Link>
           <a className="btn btn--ghostOnDark" href={`tel:${site.phoneHref}`}>
             Call {site.phone}
           </a>
@@ -60,36 +61,22 @@ export default function Footer() {
           <div>
             <span className="footer__colTitle">Services</span>
             <ul className="footer__list">
-              <li>
-                <a href="#well-water">Well water treatment</a>
-              </li>
-              <li>
-                <a href="#softeners">Water softeners</a>
-              </li>
-              <li>
-                <a href="#radon">Radon in water</a>
-              </li>
-              <li>
-                <a href="#pumps">Well pumps</a>
-              </li>
+              {services.map((service) => (
+                <li key={service.id}>
+                  <Link href={`/services#${service.id}`}>{service.title}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
             <span className="footer__colTitle">Company</span>
             <ul className="footer__list">
-              <li>
-                <a href="#process">How it works</a>
-              </li>
-              <li>
-                <a href="#symptoms">Symptoms and causes</a>
-              </li>
-              <li>
-                <a href="#service-area">Service area</a>
-              </li>
-              <li>
-                <a href="#free-water-test">Free water test</a>
-              </li>
+              {nav.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href}>{link.label}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -102,8 +89,16 @@ export default function Footer() {
               <li>
                 <a href={`mailto:${site.email}`}>{site.email}</a>
               </li>
-              {site.hours && <li><span>{site.hours}</span></li>}
-              {site.license && <li><span>CT license #{site.license}</span></li>}
+              {site.hours && (
+                <li>
+                  <span>{site.hours}</span>
+                </li>
+              )}
+              {site.license && (
+                <li>
+                  <span>CT license #{site.license}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

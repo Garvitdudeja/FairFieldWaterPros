@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -68,7 +71,10 @@ export default function RootLayout({
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        {children}
+        <StructuredData />
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,36 +1,34 @@
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Offer from "@/components/Offer";
-import Footer, { FinalCta } from "@/components/Footer";
-import StructuredData from "@/components/StructuredData";
+import { FinalCta } from "@/components/Footer";
 import {
   BrandStrip,
+  Faq,
   Process,
   Reviews,
   ServiceArea,
   Services,
-  Stats,
-  Symptoms,
+  WhyUs,
 } from "@/components/Sections";
 
+/**
+ * Section backgrounds alternate white / canvas down the page. Reviews is the
+ * one section that disappears when `reviews` in lib/site.ts is empty, so it
+ * sits where its absence doesn't leave two canvas sections touching.
+ */
 export default function HomePage() {
   return (
     <>
-      <StructuredData />
-      <Header />
-      <main id="main">
-        <Hero />
-        <BrandStrip />
-        <Stats />
-        <Services />
-        <Process />
-        <Offer />
-        <Symptoms />
-        <Reviews />
-        <ServiceArea />
-        <FinalCta />
-      </main>
-      <Footer />
+      <Hero />
+      <BrandStrip />
+      <Services />
+      <Process />
+      <WhyUs />
+      <Offer />
+      <ServiceArea />
+      <Faq tone="canvas" />
+      <Reviews tone="white" />
+      <FinalCta />
     </>
   );
 }

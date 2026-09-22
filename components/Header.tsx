@@ -1,21 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import logo from "@/public/logo.jpg";
-import { site } from "@/lib/site";
+import { nav, site } from "@/lib/site";
 import { Arrow, Phone } from "./Icons";
 
-const links = [
-  { href: "#services", label: "Services" },
-  { href: "#well-water", label: "Well water" },
-  { href: "#radon", label: "Radon" },
-  { href: "#process", label: "How it works" },
-  { href: "#service-area", label: "Service area" },
-];
-
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="header">
       <div className="header__inner">
-        <a href="#top" className="brand" aria-label={`${site.name} — home`}>
+        <Link href="/" className="brand" aria-label={`${site.name} — home`}>
           <span className="brand__badge">
             <Image src={logo} alt="" width={44} height={44} priority />
           </span>
@@ -23,14 +21,26 @@ export default function Header() {
             <span className="brand__top">{site.wordmarkTop}</span>
             <span className="brand__bottom">{site.wordmarkBottom}</span>
           </span>
-        </a>
+        </Link>
 
         <nav className="nav" aria-label="Main">
-          {links.map((link) => (
-            <a key={link.href} href={link.href}>
-              {link.label}
-            </a>
-          ))}
+          {nav.map((link) => {
+            // "/" should only light up on the home page itself; the others
+            // also match their sub-pages.
+            const active =
+              link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={active ? "is-active" : undefined}
+                aria-current={active ? "page" : undefined}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="header__actions">
@@ -44,10 +54,10 @@ export default function Header() {
           >
             <Phone />
           </a>
-          <a className="btn btn--primary header__cta" href="#free-water-test">
-            Free water test
+          <Link className="btn btn--primary header__cta" href="/contact">
+            Request a quote
             <Arrow />
-          </a>
+          </Link>
         </div>
       </div>
     </header>

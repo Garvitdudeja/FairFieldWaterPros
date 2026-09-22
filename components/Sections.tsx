@@ -1,5 +1,16 @@
-import { brands, processSteps, reviews, services, stats, symptoms, towns } from "@/lib/site";
-import { ICONS, Arrow } from "./Icons";
+import Link from "next/link";
+import {
+  brands,
+  faqs,
+  processSteps,
+  reviews,
+  services,
+  stats,
+  symptoms,
+  towns,
+  whyUs,
+} from "@/lib/site";
+import { ICONS, Arrow, Check } from "./Icons";
 
 export function BrandStrip() {
   if (brands.length === 0) return null;
@@ -18,12 +29,12 @@ export function BrandStrip() {
   );
 }
 
-export function Stats() {
+export function Stats({ tone = "white" }: { tone?: "white" | "canvas" }) {
   const shown = stats.filter((stat) => stat.value.trim() !== "");
   if (shown.length === 0) return null;
 
   return (
-    <section className="section section--canvas" style={{ paddingBlock: "48px" }}>
+    <section className={`section section--${tone}`}>
       <div className="container stats">
         {shown.map((stat) => (
           <div key={stat.label}>
@@ -36,31 +47,34 @@ export function Stats() {
   );
 }
 
+/** Service cards. Used on the Home page; each links through to Services. */
 export function Services() {
   return (
-    <section className="section section--white" id="services">
+    <section className="section section--white">
       <div className="container">
         <p className="eyebrow">What we do</p>
-        <h2 className="h2 mt-12">Every water problem a Fairfield County home actually has</h2>
+        <h2 className="h2 mt-12">
+          Water Filtration, Softeners and Well Service for Fairfield County
+        </h2>
         <p className="lead mt-16 max-ch">
-          Bedrock well or city line, the fix starts with a test. Here is what that test
-          usually leads to.
+          Bedrock well or municipal line, the work starts with a test. These are the systems
+          that test usually points to.
         </p>
 
         <div className="grid-3 mt-40">
           {services.map((service) => {
             const Icon = ICONS[service.icon];
             return (
-              <article className="card" id={service.id} key={service.id}>
+              <article className="card" key={service.id}>
                 <span className="card__icon">
                   <Icon />
                 </span>
                 <h3 className="h3 card__title">{service.title}</h3>
                 <p className="card__body">{service.body}</p>
-                <a className="card__link" href="#free-water-test">
-                  Book a test
+                <Link className="card__link" href={`/services#${service.id}`}>
+                  Explore service
                   <Arrow />
-                </a>
+                </Link>
               </article>
             );
           })}
@@ -70,12 +84,48 @@ export function Services() {
   );
 }
 
+/** The long-form version on the Services page: each service with its list. */
+export function ServicesDetailed() {
+  return (
+    <section className="section section--white">
+      <div className="container stack-services">
+        {services.map((service) => {
+          const Icon = ICONS[service.icon];
+          return (
+            <article className="service" id={service.id} key={service.id}>
+              <div className="service__head">
+                <span className="card__icon">
+                  <Icon />
+                </span>
+                <h2 className="h2 service__title">{service.title}</h2>
+              </div>
+
+              <div className="service__body">
+                <p className="lead max-ch">{service.body}</p>
+
+                <ul className="ticks mt-24">
+                  {service.includes.map((item) => (
+                    <li key={item}>
+                      <Check />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export function Process() {
   return (
-    <section className="section section--canvas" id="process">
+    <section className="section section--canvas">
       <div className="container">
         <p className="eyebrow">How it works</p>
-        <h2 className="h2 mt-12">Three steps, no pressure pitch</h2>
+        <h2 className="h2 mt-12">From test to installation in three steps</h2>
 
         <div className="grid-3 mt-40">
           {processSteps.map((item) => (
@@ -91,12 +141,35 @@ export function Process() {
   );
 }
 
+export function WhyUs() {
+  return (
+    <section className="section section--white">
+      <div className="container">
+        <p className="eyebrow">Why homeowners choose us</p>
+        <h2 className="h2 mt-12">A straightforward way to buy water treatment</h2>
+
+        <div className="grid-3 mt-40">
+          {whyUs.map((point) => (
+            <div className="reason" key={point.title}>
+              <h3 className="h3 reason__title">
+                <Check />
+                {point.title}
+              </h3>
+              <p className="card__body">{point.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Symptoms() {
   return (
-    <section className="section section--canvas" id="symptoms">
+    <section className="section section--canvas">
       <div className="container">
         <p className="eyebrow">Symptoms and causes</p>
-        <h2 className="h2 mt-12">What you&rsquo;re noticing, and why</h2>
+        <h2 className="h2 mt-12">What you&rsquo;re noticing, and what causes it</h2>
 
         <div className="table">
           <div className="table__head">
@@ -127,15 +200,15 @@ export function Symptoms() {
   );
 }
 
-export function Reviews() {
+export function Reviews({ tone = "white" }: { tone?: "white" | "canvas" }) {
   // Nothing ships until real reviews are pasted into lib/site.ts.
   if (reviews.length === 0) return null;
 
   return (
-    <section className="section section--white" id="reviews">
+    <section className={`section section--${tone}`}>
       <div className="container">
         <p className="eyebrow">Reviews</p>
-        <h2 className="h2 mt-12">What neighbors say</h2>
+        <h2 className="h2 mt-12">What Fairfield County homeowners say</h2>
 
         <div className="grid-3 mt-40">
           {reviews.map((review) => (
@@ -158,19 +231,18 @@ export function Reviews() {
   );
 }
 
-export function ServiceArea() {
+export function ServiceArea({ tone = "white" }: { tone?: "white" | "canvas" }) {
   return (
-    <section className="section section--white" id="service-area">
+    <section className={`section section--${tone}`}>
       <div className="container">
-        <h2 className="h2">Where we work</h2>
-        <p className="lead mt-12 max-ch">
-          All of Fairfield County, Connecticut — from Greenwich up to Sherman.
+        <p className="eyebrow">Service area</p>
+        <h2 className="h2 mt-12">Where we work</h2>
+        <p className="lead mt-16 max-ch">
+          All 23 towns in Fairfield County, Connecticut — from Greenwich and Stamford on the
+          shoreline up through Danbury, Ridgefield and Sherman.
         </p>
 
-        <ul
-          className="towns"
-          style={{ listStyle: "none", padding: 0, margin: "24px 0 0" }}
-        >
+        <ul className="towns">
           {towns.map((town) => (
             <li className="town" key={town}>
               {town}
@@ -178,6 +250,45 @@ export function ServiceArea() {
           ))}
         </ul>
       </div>
+    </section>
+  );
+}
+
+export function Faq({ tone = "white" }: { tone?: "white" | "canvas" }) {
+  // Google reads this to build the FAQ result in search listings.
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
+
+  return (
+    <section className={`section section--${tone}`}>
+      <div className="container">
+        <p className="eyebrow">Common questions</p>
+        <h2 className="h2 mt-12">Frequently asked questions</h2>
+
+        <div className="faq mt-32">
+          {faqs.map((faq) => (
+            <details className="faq__item" key={faq.question}>
+              <summary className="faq__q">
+                {faq.question}
+                <span className="faq__sign" aria-hidden="true" />
+              </summary>
+              <p className="faq__a">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
     </section>
   );
 }

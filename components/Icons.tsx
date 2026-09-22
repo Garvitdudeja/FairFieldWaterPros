@@ -95,6 +95,33 @@ export function Phone(props: IconProps) {
   );
 }
 
+export function Mail(props: IconProps) {
+  return (
+    <Base size={18} strokeWidth={1.7} {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3.5 6.5l8.5 6 8.5-6" />
+    </Base>
+  );
+}
+
+export function Clock(props: IconProps) {
+  return (
+    <Base size={18} strokeWidth={1.7} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5.2l3.2 2" />
+    </Base>
+  );
+}
+
+export function Pin(props: IconProps) {
+  return (
+    <Base size={18} strokeWidth={1.7} {...props}>
+      <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </Base>
+  );
+}
+
 export function Check(props: IconProps) {
   return (
     <Base size={20} strokeWidth={1.7} {...props}>

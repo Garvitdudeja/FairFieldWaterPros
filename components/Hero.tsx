@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { sampleReport, site } from "@/lib/site";
 import { Arrow, Check, Phone } from "./Icons";
 
@@ -38,7 +39,7 @@ function SampleReport() {
 
 export default function Hero() {
   return (
-    <section className="section section--canvas" id="top">
+    <section className="section section--canvas">
       <div className="container hero">
         <div>
           <p className="hero__flag">
@@ -48,18 +49,21 @@ export default function Hero() {
             </span>
           </p>
 
-          <h1 className="h1 mt-16">Water worth drinking, from every tap.</h1>
+          <h1 className="h1 mt-16">
+            Water Treatment &amp; Well Pump Service for Fairfield County Homes
+          </h1>
 
           <p className="lead mt-24 max-ch">
-            Whole-home filtration, softeners, radon removal and well pump service — sized to
-            what your water test actually says, not to what we have on the truck.
+            Whole-home filtration, water softeners, reverse osmosis, radon removal and well
+            pump repair — sized to what your water test actually shows. Testing is free and
+            comes with the numbers, whether or not you buy anything.
           </p>
 
           <div className="btn-row mt-32">
-            <a className="btn btn--primary" href="#free-water-test">
-              Book a free water test
+            <Link className="btn btn--primary" href="/contact">
+              Request a free water test
               <Arrow />
-            </a>
+            </Link>
             <a className="btn btn--secondary" href={`tel:${site.phoneHref}`}>
               <Phone />
               Call {site.phone}
@@ -69,7 +73,7 @@ export default function Hero() {
           <p className="hero__trust mt-32">
             <span>Licensed &amp; insured</span>
             <span className="sep" aria-hidden="true" />
-            <span>CT-certified water treatment</span>
+            <span>Wells &amp; city water</span>
             <span className="sep" aria-hidden="true" />
             <span>Same-day pump service</span>
           </p>
