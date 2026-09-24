@@ -26,7 +26,7 @@ export default function LeadForm() {
 
     if (!payload.name || !payload.phone) {
       setStatus("error");
-      setError("Please add your name and a phone number so we can confirm a time.");
+      setError("Please add your name and a phone number so we can call you back.");
       return;
     }
 
@@ -54,8 +54,8 @@ export default function LeadForm() {
         </span>
         <h3 className="h3">Request received</h3>
         <p>
-          We&rsquo;ll call to confirm a time for your free water test, usually the same
-          business day.
+          We&rsquo;ll call you back to talk through the options, usually the same business
+          day.
         </p>
       </div>
     );
@@ -97,7 +97,7 @@ export default function LeadForm() {
       </div>
 
       <button className="btn btn--primary btn--block" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Sending…" : "Request my free test"}
+        {status === "sending" ? "Sending…" : "Request a quote"}
       </button>
 
       {status === "error" && (
@@ -106,7 +106,9 @@ export default function LeadForm() {
         </p>
       )}
 
-      <p className="form__note">We&rsquo;ll call to confirm a time. No automated sales calls.</p>
+      <p className="form__note">
+        We&rsquo;ll call you back to talk it through. No automated sales calls.
+      </p>
     </form>
   );
 }

@@ -6,7 +6,7 @@ import { Process, ServicesDetailed, Symptoms } from "@/components/Sections";
 export const metadata: Metadata = {
   title: "Water Treatment Services",
   description:
-    "Well water treatment, water softeners, reverse osmosis, radon removal, city water filtration and well pump service across Fairfield County, CT.",
+    "Whole home water filtration, reverse osmosis drinking water, well water treatment, water softeners, carbon filtration and city water treatment systems across Fairfield County, CT and the surrounding area.",
   alternates: { canonical: "/services" },
 };
 
@@ -16,11 +16,11 @@ export default function ServicesPage() {
       <PageHeader
         eyebrow="Services"
         title="Water Treatment Services"
-        intro="Whole-home filtration, softeners, drinking water systems, radon removal and well pump work — for private bedrock wells and municipal supply across Fairfield County."
+        intro="Whole home filtration, softeners, carbon systems and reverse osmosis drinking water — for private wells and city water across Fairfield County and the surrounding towns."
       />
       <ServicesDetailed />
       <Symptoms />
-      <Process />
+      <Process tone="white" />
       <FinalCta />
     </>
   );

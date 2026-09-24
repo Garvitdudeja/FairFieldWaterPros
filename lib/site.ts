@@ -13,6 +13,9 @@
  * One rule worth keeping: don't fill a blank with something you can't back
  * up. Years in business, job counts and reviews are the first things a
  * competitor or a customer will check.
+ *
+ * What this company does NOT do, so nothing here should imply otherwise:
+ * no water testing, no radon removal, no well pump or pressure tank work.
  * ---------------------------------------------------------------------------
  */
 
@@ -24,7 +27,7 @@ export type Service = {
   /** Bullet points shown on the Services page under each service. */
   includes: string[];
   /** Key into the ICONS map in components/Icons.tsx */
-  icon: "droplet" | "funnel" | "flask" | "shield" | "house" | "gauge";
+  icon: "droplet" | "funnel" | "flask" | "house" | "layers" | "building";
 };
 
 export type Stat = {
@@ -58,7 +61,7 @@ export const site = {
   wordmarkBottom: "Water Pros",
 
   tagline:
-    "Whole-home water filtration, radon removal and well pump service across Fairfield County, Connecticut.",
+    "Whole-home water filtration, softeners and reverse osmosis drinking water systems for homes across Fairfield County and the surrounding area.",
 
   // TODO: your real phone number.
   // `phone` is what people read. `phoneHref` is what the link dials —
@@ -81,8 +84,9 @@ export const site = {
   hours: "Mon–Sat, 7am–7pm",
   license: "",
 
-  /** Set to "" if you don't actually offer after-hours service. */
-  emergencyNote: "Emergency well pump service available same day.",
+  /** Shown on the Contact page. Set to "" to hide it. */
+  phoneNote:
+    "Most questions get settled in one call — including what a system would cost.",
 
   /** Set NEXT_PUBLIC_SITE_URL in Vercel once you have a domain. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fairfieldcountywaterpros.com",
@@ -106,96 +110,100 @@ export const waterSources = ["Private well", "City water", "Not sure"] as const;
 
 export const services: Service[] = [
   {
-    id: "well-water",
-    title: "Well Water Treatment",
-    body: "Iron, sulfur odor, sediment, staining and low pH are the usual findings on a Fairfield County bedrock well. The system is built around your well's test numbers.",
+    id: "whole-home-filtration",
+    title: "Whole Home Water Filtration",
+    body: "Treatment where the water enters the house, so every tap, shower and appliance runs on the same filtered water rather than one filter at one sink.",
     includes: [
-      "Air-injection iron and manganese filters",
-      "Catalytic carbon and aeration for sulfur odor",
-      "Acid neutralizers for low pH and copper pitting",
-      "Sediment filtration and UV disinfection",
+      "Installed at the main line into the house",
+      "Sized to your household's water use",
+      "Sediment, taste and odor filtration",
+      "Filter and media changes on schedule afterwards",
     ],
-    icon: "droplet",
-  },
-  {
-    id: "softeners",
-    title: "Water Softeners",
-    body: "Calcium and magnesium scale fixtures, dull laundry and shorten the life of a water heater. A correctly sized softener removes them at the point of entry.",
-    includes: [
-      "Sizing based on measured hardness and household use",
-      "Metered regeneration, so you buy less salt",
-      "Salt-efficient and twin-tank options",
-      "Existing softener service, repair and rebuild",
-    ],
-    icon: "funnel",
+    icon: "house",
   },
   {
     id: "reverse-osmosis",
-    title: "Reverse Osmosis Drinking Water",
+    title: "Reverse Osmosis Drinking Water Systems",
     body: "An under-sink system for the water you drink and cook with, filtered down to the dissolved solids that whole-home equipment is not designed to catch.",
     includes: [
       "Under-sink installation with a dedicated faucet",
       "Refrigerator and ice maker connections",
       "Remineralization options for taste",
-      "Annual filter changes and membrane replacement",
+      "Annual filter and membrane replacement",
     ],
     icon: "flask",
   },
   {
-    id: "radon",
-    title: "Radon in Water Removal",
-    body: "Radon travels through bedrock into well water and leaves it as vapor during showers and laundry. It has no taste, smell or color, so a lab test is the only way to find it.",
+    id: "well-water",
+    title: "Well Water Treatment Systems",
+    body: "Private wells in this area commonly bring iron staining, sediment, hardness, low pH and a sulfur smell. The system is built around what you're seeing at the tap.",
     includes: [
-      "Lab testing for radon in water",
-      "Aeration systems for higher concentrations",
-      "Granular activated carbon (GAC) for lower ones",
-      "Retesting after installation to confirm the result",
+      "Iron and manganese filtration for orange staining",
+      "Acid neutralizers for low pH and copper pitting",
+      "Sediment filtration for grit and cloudiness",
+      "Softening and carbon staged on the same line",
     ],
-    icon: "shield",
+    icon: "droplet",
+  },
+  {
+    id: "softeners",
+    title: "Water Softener Systems",
+    body: "Calcium and magnesium scale fixtures, spot the glassware, dull laundry and shorten the life of a water heater. A correctly sized softener removes them at the point of entry.",
+    includes: [
+      "Sizing based on your hardness and household use",
+      "Metered regeneration, so you buy less salt",
+      "Salt-efficient and twin-tank options",
+      "Service, repair and rebuilds on existing softeners",
+    ],
+    icon: "funnel",
+  },
+  {
+    id: "carbon-filtration",
+    title: "Carbon Filtration Systems",
+    body: "Carbon is what takes out chlorine and chloramine taste, the sulfur smell from a well, and most of what makes water unpleasant to drink or shower in.",
+    includes: [
+      "Whole-home carbon for chlorine and chloramine",
+      "Catalytic carbon for hydrogen sulfide odor",
+      "Backwashing and cartridge-style configurations",
+      "Media replacement before performance drops off",
+    ],
+    icon: "layers",
   },
   {
     id: "city-water",
-    title: "City Water Treatment",
-    body: "Public water arrives treated, but still carries chlorine or chloramine, sediment and hardness. Carbon filtration and a softener address all three where the line enters the house.",
+    title: "City Water Treatment Systems",
+    body: "Public water arrives treated, but still carries chlorine or chloramine, some sediment, and whatever hardness the source has. All three are handled where the line enters the house.",
     includes: [
-      "Whole-home carbon for chlorine and chloramine taste",
-      "Sediment pre-filtration",
+      "Carbon filtration for chlorine taste and smell",
       "Softening for scale and appliance life",
-      "Point-of-use drinking water systems",
+      "Sediment pre-filtration",
+      "Drinking water systems at the kitchen sink",
     ],
-    icon: "house",
-  },
-  {
-    id: "pumps",
-    title: "Well Pumps & Pressure Tanks",
-    body: "No water, pressure that surges or drops out, or a pump that short-cycles. We diagnose the cause rather than replacing parts in sequence.",
-    includes: [
-      "Submersible and jet pump diagnosis and replacement",
-      "Pressure tank replacement and re-charging",
-      "Pressure switch, wiring and control box repair",
-      "Same-day service for a house with no water",
-    ],
-    icon: "gauge",
+    icon: "building",
   },
 ];
 
-/** The "How it works" steps. Named `processSteps`, not `process`, so it does
- *  not shadow Node's global `process` inside this module. */
+/**
+ * The "How it works" steps, shown high on the Home page.
+ *
+ * Named `processSteps`, not `process`, so it does not shadow Node's global
+ * `process` inside this module.
+ */
 export const processSteps = [
   {
     step: "01",
-    title: "We test your water",
-    body: "On site, at your kitchen sink: hardness, iron, pH, sulfur and TDS, plus a look at whatever equipment is already installed. Free, with no obligation to buy.",
+    title: "Tell us about your water",
+    body: "A phone call is usually enough. You describe what you're seeing — staining, scale, a taste or a smell — plus whether you're on a well or city water and how big the household is. If you already have a test report, send it over and we'll read it with you.",
   },
   {
     step: "02",
-    title: "We size the right system",
-    body: "You get the options, the sizing and the price in writing — including what each one costs to run per year in salt, media and filters.",
+    title: "We recommend the right system",
+    body: "You get the options, the sizing and the installed price, along with what each one costs to run per year in salt, media and filters. In writing, before anything is ordered.",
   },
   {
     step: "03",
     title: "We install it properly",
-    body: "Most whole-home installs finish in a day. We flush the lines, set the system up with you, retest at the tap and take the old equipment away.",
+    body: "Most whole-home systems go in within a day. We flush the lines, set the system up with you, and take the old equipment away.",
   },
 ];
 
@@ -207,50 +215,49 @@ export const processSteps = [
  */
 export const whyUs = [
   {
-    title: "We test before we recommend",
-    body: "Every recommendation starts with your water's actual numbers, not a package chosen before we arrive.",
+    title: "Builders before we were water people",
+    body: "Twenty years building homes in this area. We know how a house is plumbed before anyone opens a wall.",
+  },
+  {
+    title: "Straight answers on the phone",
+    body: "Most of this gets settled in one call. We don't book an appointment just to tell you a price.",
   },
   {
     title: "Pricing in writing",
-    body: "You see the equipment, the installed price and the annual running cost before anything is ordered.",
+    body: "The installed price and the annual running cost, both before anything is ordered.",
   },
   {
     title: "Systems sized to your house",
-    body: "Sizing follows measured hardness, iron and household demand, so the system isn't over- or under-built.",
+    body: "Sizing follows your water and your household's real demand, so the system isn't over- or under-built.",
   },
   {
-    title: "Local to Fairfield County",
-    body: "We work on the same bedrock wells and the same municipal supplies every day, across all 23 towns.",
-  },
-  {
-    title: "Licensed and insured",
-    body: "Connecticut licensed and fully insured, with the paperwork available before we start.",
+    title: "Local and licensed",
+    body: "Fairfield County and the surrounding towns, fully insured, with the paperwork available up front.",
   },
   {
     title: "We service what we install",
-    body: "Filter changes, salt, media and repairs afterwards — including equipment other companies installed.",
+    body: "Filters, salt, media and repairs afterwards — including equipment another company put in.",
   },
 ];
 
 /**
  * The About page copy.
  *
- * TODO: this is deliberately written without a founding year, owner name or
- * job count, because those have to be yours. Fill in `since` and `ownerName`
- * and the extra lines appear; leave them blank and they stay off the page.
+ * TODO: the "more than twenty years" in the first paragraph is the one
+ * number here. Update it as that changes. `ownerName` is blank until you
+ * fill it in, and the signature line stays off the page until you do.
  */
 export const about = {
-  /** TODO: e.g. "2011". Blank hides the sentence that uses it. */
-  since: "",
   /** TODO: e.g. "Matt Reynolds". Blank hides the signature line. */
   ownerName: "",
-  /** TODO: e.g. "Owner" or "Owner & Lead Technician". */
+  /** TODO: e.g. "Owner" or "Owner & Lead Installer". */
   ownerTitle: "Owner",
 
   paragraphs: [
-    "Fairfield County Water Pros treats water for homes across Fairfield County, Connecticut — private bedrock wells and municipal supply alike. We install and service whole-home filtration, water softeners, acid neutralizers, reverse osmosis drinking water systems, radon removal, and well pumps and pressure tanks.",
-    "Water here varies street by street. Two houses on the same road can draw from fractures at different depths and test nothing alike — one with iron staining and a sulfur smell, the next with hard water and radon and no taste at all. That is why we test at your tap before recommending anything, and why we give you the numbers rather than a summary.",
-    "The result is equipment sized to your household's water and your household's demand, priced in writing before it is ordered, and serviced by the same company afterwards. If what you need is a filter change or a repair on a system somebody else installed, we do that too.",
+    "We're a local family of builders. For more than twenty years we've been building homes across Fairfield County and the towns around it, and in that time we've seen a lot of what comes out of the taps here — well water and city water both.",
+    "Water treatment wasn't the plan. We got into it because it kept mattering. Clean drinking water isn't a luxury item in a house, and too many of our neighbors were living with staining, scale, or water they didn't want to drink — usually because nobody had explained the options, or because the price never arrived with an explanation attached.",
+    "So that's how we work now. Tell us what you're seeing at the tap — the orange staining, the smell, the scale on the kettle, the drinking water nobody likes — and a bit about the house, and we can usually narrow it to one or two systems over the phone. We don't sell water tests. If you already have a test report, send it and we'll go through it with you.",
+    "You get the sizing, the installed price and the annual running cost in writing before anything is ordered. We install it, set it up with you, and service it afterwards — including equipment another company put in.",
   ],
 };
 
@@ -259,34 +266,36 @@ export const about = {
  * so nothing unverified ever ships.
  */
 export const stats: Stat[] = [
-  { value: "23", label: "Fairfield County towns served" },
-  { value: "Free", label: "On-site water testing" },
-  // TODO: e.g. { value: "15", label: "Years in business" }
-  { value: "", label: "Years in business" },
-  // TODO: e.g. { value: "1,200+", label: "Systems installed" }
+  { value: "20+", label: "Years building homes in the area" },
+  { value: "Family", label: "Owned and operated" },
+  // TODO: e.g. { value: "8", label: "Years in water treatment" }
+  { value: "", label: "Years in water treatment" },
+  // TODO: e.g. { value: "600+", label: "Systems installed" }
   { value: "", label: "Systems installed" },
 ];
+
+/** Where we work. The towns list below is the core of it. */
+export const serviceArea = {
+  heading: "Fairfield County and the surrounding towns",
+  intro:
+    "We cover all of Fairfield County, Connecticut, and the neighboring towns just past the county line. If you're nearby and don't see your town here, call and ask — the answer is usually yes.",
+};
 
 export const symptoms: SymptomRow[] = [
   {
     notice: "Orange-brown staining in sinks and tubs",
     cause: "Dissolved iron in well water",
-    fix: "Air-injection iron filter",
+    fix: "Iron filtration",
   },
   {
     notice: "Rotten-egg smell, worse from hot taps",
     cause: "Hydrogen sulfide",
-    fix: "Catalytic carbon or aeration",
+    fix: "Catalytic carbon filtration",
   },
   {
     notice: "Scale on fixtures, dull laundry, dry skin",
     cause: "Calcium and magnesium hardness",
     fix: "Ion-exchange softener",
-  },
-  {
-    notice: "Nothing at all — no taste, smell or color",
-    cause: "Radon, arsenic or uranium from bedrock",
-    fix: "Lab test, then aeration or GAC",
   },
   {
     notice: "Chlorine taste, pool smell in the shower",
@@ -299,58 +308,57 @@ export const symptoms: SymptomRow[] = [
     fix: "Acid neutralizer",
   },
   {
-    notice: "Pressure that surges or drops out",
-    cause: "Failing pump or waterlogged tank",
-    fix: "Pump and pressure tank service",
+    notice: "Cloudy or gritty water, clogged aerators",
+    cause: "Sediment from the well or the line",
+    fix: "Sediment filtration",
+  },
+  {
+    notice: "Drinking water nobody in the house likes",
+    cause: "Dissolved solids and taste compounds",
+    fix: "Reverse osmosis at the kitchen sink",
   },
 ];
 
-/**
- * TODO: check these against your own practice and Connecticut DPH guidance
- * before launch — particularly the testing intervals in the third answer.
- * They are written to be accurate and uncontroversial, but they are your
- * statements once they are on your website.
- */
 export const faqs: Faq[] = [
   {
-    question: "How do I know whether I need water treatment?",
+    question: "How do I know which system I need?",
     answer:
-      "Staining, scale, a sulfur smell or a chlorine taste are the obvious signs. The less obvious case matters more: radon, arsenic and uranium are all common in Connecticut bedrock and none of them can be tasted, smelled or seen. A test is the only way to rule them out.",
+      "Start with what you're seeing: orange staining, scale on the fixtures, a chlorine taste, a sulfur smell, or drinking water nobody likes. Tell us that, plus whether you're on a well or city water and how big the household is, and we can usually narrow it to one or two options on the phone.",
   },
   {
-    question: "Do you test the water before recommending a system?",
+    question: "Do you test my water first?",
     answer:
-      "Yes. We test at your tap for hardness, iron, pH, sulfur and total dissolved solids, and look at any equipment already installed. Radon, arsenic, uranium and bacteria need a certified lab, which we can arrange. You get the results either way, whether or not you buy anything.",
+      "We don't sell water testing. If you already have a recent test — from a lab, a home inspection, or your town's annual water quality report — send it over and we'll read it with you. If you don't have one, what you're seeing at the tap plus the details of the house is usually enough to size the right system.",
   },
   {
-    question: "How often should a private well be tested?",
+    question: "What's the difference between a filter and a softener?",
     answer:
-      "Annually for bacteria and nitrate, and every few years for the broader panel including metals and radon. Test sooner if the taste, smell or color changes, after any work on the well itself, or after flooding nearby.",
+      "A softener removes the calcium and magnesium that cause scale, spotting and dull laundry. A filter removes things like chlorine, sediment, iron and the compounds behind a bad taste or smell. Plenty of homes need both, and they're installed together on the same line.",
   },
   {
-    question: "Is radon in water actually a concern in Fairfield County?",
+    question: "Will a water softener make my water taste salty?",
     answer:
-      "It can be. Radon moves through the same bedrock fractures that supply many wells here, and it leaves the water as vapor during showers and laundry, which adds to the radon in your indoor air. Levels vary sharply between neighboring properties, so a test on your own well is the only reliable answer.",
+      "No. The salt regenerates the resin inside the softener and is rinsed to the drain — it doesn't end up in the water you drink. If taste is your main concern, a reverse osmosis system at the kitchen sink is the usual answer.",
   },
   {
-    question: "How long does an installation take?",
+    question: "I'm on city water. Do I still need treatment?",
     answer:
-      "Most whole-home systems are installed in a day. Radon aeration and more involved multi-stage systems can run longer. We tell you which applies before scheduling, not on the morning of the install.",
+      "Often, yes. Municipal water is treated to be safe to drink, but it still arrives with chlorine or chloramine, some sediment, and whatever hardness the source has. Carbon filtration handles the taste and smell; a softener handles the scale.",
+  },
+  {
+    question: "How long does installation take?",
+    answer:
+      "Most whole-home systems are installed in a day. An under-sink reverse osmosis system is a few hours. We'll tell you which applies before anything is scheduled.",
   },
   {
     question: "Will you service equipment another company installed?",
     answer:
-      "Yes — filter and media changes, softener repairs, pressure tanks and pump work on most major brands. You do not have to replace a working system to become a customer.",
+      "Yes — filter and media changes, softener repairs and rebuilds on most major brands. You don't have to replace a working system to become a customer.",
   },
   {
     question: "What does a system cost to run each year?",
     answer:
-      "It depends on the equipment, but it is a real number and you should have it before you buy. Our written quotes include the annual cost of salt, media and filters alongside the installed price.",
-  },
-  {
-    question: "Do you handle emergencies when a house has no water?",
-    answer:
-      "Pump and pressure tank failures are the usual cause, and those are same-day calls for us wherever the schedule allows. Call rather than using the form if you have no water right now.",
+      "It depends on the equipment, but it's a real number and you should have it before you buy. Our quotes include the annual cost of salt, media and filters alongside the installed price.",
   },
 ];
 
@@ -363,14 +371,20 @@ export const faqs: Faq[] = [
  */
 export const reviews: Review[] = [
   // {
-  //   quote: "Matt tested our well, found iron and radon, and had the system in the next week. No hard sell at all.",
+  //   quote: "They talked me through it on the phone, quoted the softener and the carbon filter together, and had it in the following week.",
   //   name: "Sarah K.",
   //   town: "Ridgefield",
-  //   service: "Iron filter + radon aeration",
+  //   service: "Softener + whole-home carbon",
   // },
 ];
 
-/** All 23 towns in Fairfield County. Trim to the ones you actually cover. */
+/**
+ * All 23 towns in Fairfield County, plus room for the surrounding ones.
+ *
+ * TODO: add the towns you cover outside the county — Oxford, Seymour,
+ * Naugatuck, Woodbury and so on — and trim any Fairfield County town you
+ * don't actually travel to.
+ */
 export const towns = [
   "Bethel",
   "Bridgeport",
@@ -403,20 +417,3 @@ export const brands: string[] = [
   // "Fleck",
   // "Pentair",
 ];
-
-/**
- * The sample report card in the hero. These are illustrative numbers for a
- * typical Fairfield County bedrock well — the card is labelled "Sample report"
- * on the page so nobody mistakes it for a specific customer's results.
- */
-export const sampleReport = {
-  location: "bedrock well · Ridgefield",
-  rows: [
-    { label: "Hardness", value: "14.2 gpg", flag: "Very hard", severity: "warn" as const },
-    { label: "Iron", value: "1.8 ppm", flag: "Staining", severity: "warn" as const },
-    { label: "Radon in water", value: "8,400 pCi/L", flag: "Elevated", severity: "warn" as const },
-    { label: "pH", value: "5.9", flag: "Acidic", severity: "info" as const },
-  ],
-  recommendation:
-    "radon aeration first, then iron filter, neutralizer and softener — in that order.",
-};

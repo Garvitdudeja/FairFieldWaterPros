@@ -1,41 +1,7 @@
 import Link from "next/link";
-import { sampleReport, site } from "@/lib/site";
-import { Arrow, Check, Phone } from "./Icons";
-
-function SampleReport() {
-  return (
-    <div className="report">
-      <div className="report__head">
-        <span>Sample water report</span>
-        <span className="report__loc mono">{sampleReport.location}</span>
-      </div>
-
-      <div className="mt-16">
-        {sampleReport.rows.map((row) => (
-          <div className="report__row" key={row.label}>
-            <span className="report__label">{row.label}</span>
-            <span className="report__vals">
-              <span className="report__value mono">{row.value}</span>
-              <span
-                className={row.severity === "warn" ? "chip chip--warn" : "chip chip--info"}
-              >
-                {row.flag}
-              </span>
-            </span>
-          </div>
-        ))}
-      </div>
-
-      <p className="report__rec">
-        <Check />
-        <span>
-          <strong style={{ color: "var(--navy)", fontWeight: 600 }}>Recommended:</strong>{" "}
-          {sampleReport.recommendation}
-        </span>
-      </p>
-    </div>
-  );
-}
+import LeadForm from "./LeadForm";
+import { site } from "@/lib/site";
+import { Arrow, Phone } from "./Icons";
 
 export default function Hero() {
   return (
@@ -45,29 +11,29 @@ export default function Hero() {
           <p className="hero__flag">
             <span className="dot" />
             <span className="eyebrow">
-              Serving all of Fairfield County, {site.address.region}
+              Fairfield County, {site.address.region} &amp; surrounding towns
             </span>
           </p>
 
           <h1 className="h1 mt-16">
-            Water Treatment &amp; Well Pump Service for Fairfield County Homes
+            Water Filtration &amp; Softener Systems for Local Homes
           </h1>
 
           <p className="lead mt-24 max-ch">
-            Whole-home filtration, water softeners, reverse osmosis, radon removal and well
-            pump repair — sized to what your water test actually shows. Testing is free and
-            comes with the numbers, whether or not you buy anything.
+            Whole-home filtration, water softeners, carbon systems and reverse osmosis
+            drinking water — for private wells and city water alike. Tell us what you&rsquo;re
+            seeing at the tap and we&rsquo;ll size the right system, usually over the phone.
           </p>
 
           <div className="btn-row mt-32">
-            <Link className="btn btn--primary" href="/contact">
-              Request a free water test
-              <Arrow />
-            </Link>
-            <a className="btn btn--secondary" href={`tel:${site.phoneHref}`}>
+            <a className="btn btn--primary" href={`tel:${site.phoneHref}`}>
               <Phone />
               Call {site.phone}
             </a>
+            <Link className="btn btn--secondary" href="/services">
+              See our services
+              <Arrow />
+            </Link>
           </div>
 
           <p className="hero__trust mt-32">
@@ -75,11 +41,19 @@ export default function Hero() {
             <span className="sep" aria-hidden="true" />
             <span>Wells &amp; city water</span>
             <span className="sep" aria-hidden="true" />
-            <span>Same-day pump service</span>
+            <span>Family owned</span>
           </p>
         </div>
 
-        <SampleReport />
+        <div className="hero__form">
+          <h2 className="h3">Get a quote</h2>
+          <p className="card__body">
+            Send us the basics and we&rsquo;ll call you back, usually the same business day.
+          </p>
+          <div className="mt-24">
+            <LeadForm />
+          </div>
+        </div>
       </div>
     </section>
   );

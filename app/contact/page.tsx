@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Request a free water test or book well pump service with ${site.name}. Serving all 23 towns in Fairfield County, Connecticut.`,
+  description: `Get a quote on water filtration, softeners or a reverse osmosis drinking water system from ${site.name}. Serving Fairfield County, CT and the surrounding area.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -20,7 +20,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Contact Us"
-        intro="Tell us what you're seeing in your water and we'll arrange a test. If you have no water right now, call rather than filling in the form — that gets to us faster."
+        intro="Tell us what you're seeing in your water and we'll talk you through the options. Most of the time we can narrow it down and give you a price over the phone."
       />
 
       <section className="section section--white">
@@ -79,16 +79,14 @@ export default function ContactPage() {
                         {locality}, {region} {postalCode}
                       </>
                     ) : (
-                      <>All of Fairfield County, {region}</>
+                      <>Fairfield County, {region} &amp; surrounding towns</>
                     )}
                   </span>
                 </span>
               </li>
             </ul>
 
-            {site.emergencyNote && (
-              <p className="notice mt-32">{site.emergencyNote}</p>
-            )}
+            {site.phoneNote && <p className="notice mt-32">{site.phoneNote}</p>}
 
             {site.license && (
               <p className="form__note mt-16">CT license #{site.license}</p>
@@ -96,9 +94,10 @@ export default function ContactPage() {
           </div>
 
           <div className="contact__form">
-            <h2 className="h3">Request a water test</h2>
+            <h2 className="h3">Get a quote</h2>
             <p className="card__body">
-              We&rsquo;ll call to confirm a time, usually the same business day.
+              Send us the basics and we&rsquo;ll call you back, usually the same business
+              day.
             </p>
             <div className="mt-24">
               <LeadForm />

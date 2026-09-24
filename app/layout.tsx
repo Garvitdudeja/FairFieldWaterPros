@@ -21,9 +21,9 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const title = `${site.name} — Well Water Treatment, Softeners & Radon Removal`;
+const title = `${site.name} — Water Filtration, Softeners & Reverse Osmosis`;
 const description =
-  "Whole-home water filtration, softeners, reverse osmosis, radon removal and well pump service across Fairfield County, CT. Free on-site water test, written pricing, most installs in a day.";
+  "Whole home water filtration, water softeners, carbon filtration and reverse osmosis drinking water systems for well and city water across Fairfield County, CT and the surrounding area. Written pricing, most installs in a day.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

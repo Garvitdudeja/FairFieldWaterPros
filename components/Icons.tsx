@@ -48,12 +48,25 @@ export function Flask(props: IconProps) {
   );
 }
 
-export function Shield(props: IconProps) {
+export function Layers(props: IconProps) {
   return (
     <Base {...props}>
-      <path d="M12 3l7 3v5.4c0 4.3-2.9 7.9-7 9.3-4.1-1.4-7-5-7-9.3V6z" />
-      <path d="M12 9v4" />
-      <path d="M12 16.2h.01" />
+      <path d="M12 3l9 4.5-9 4.5-9-4.5z" />
+      <path d="M3 12.5l9 4.5 9-4.5" />
+      <path d="M3 17l9 4.5 9-4.5" />
+    </Base>
+  );
+}
+
+export function Building(props: IconProps) {
+  return (
+    <Base {...props}>
+      <path d="M3 21h18" />
+      <path d="M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16" />
+      <path d="M15 21V10h3a2 2 0 0 1 2 2v9" />
+      <path d="M8.5 7h3" />
+      <path d="M8.5 11h3" />
+      <path d="M8.5 15h3" />
     </Base>
   );
 }
@@ -64,16 +77,6 @@ export function House(props: IconProps) {
       <path d="M3 21h18" />
       <path d="M5 21V8l7-4 7 4v13" />
       <path d="M10 21v-5h4v5" />
-    </Base>
-  );
-}
-
-export function Gauge(props: IconProps) {
-  return (
-    <Base {...props}>
-      <circle cx="12" cy="13" r="7" />
-      <path d="M12 13V9" />
-      <path d="M9.5 3h5" />
     </Base>
   );
 }
@@ -134,7 +137,7 @@ export const ICONS = {
   droplet: Droplet,
   funnel: Funnel,
   flask: Flask,
-  shield: Shield,
   house: House,
-  gauge: Gauge,
+  layers: Layers,
+  building: Building,
 } as const;

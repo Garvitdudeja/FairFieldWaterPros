@@ -6,30 +6,24 @@ import { about, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: `About ${site.name} — water treatment, filtration and well pump service for homes across Fairfield County, Connecticut.`,
+  description: `About ${site.name} — a local family of builders installing water filtration, softeners and drinking water systems across Fairfield County, CT and the surrounding area.`,
   alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
-  const { since, ownerName, ownerTitle, paragraphs } = about;
+  const { ownerName, ownerTitle, paragraphs } = about;
 
   return (
     <>
       <PageHeader
         eyebrow="About us"
         title="About Fairfield County Water Pros"
-        intro="Water treatment built around what your water actually tests at — for wells and city supply across all 23 towns in the county."
+        intro="A local family of builders who got into water treatment — installing filtration, softeners and drinking water systems across Fairfield County and the towns around it."
       />
 
       <section className="section section--white">
         <div className="container prose">
           <h2 className="h2">Who we are</h2>
-
-          {since && (
-            <p className="lead mt-16">
-              Serving Fairfield County homeowners since {since}.
-            </p>
-          )}
 
           {paragraphs.map((paragraph) => (
             <p key={paragraph.slice(0, 40)}>{paragraph}</p>

@@ -477,109 +477,26 @@ img {
   background: var(--border-strong);
 }
 
-/* --- Sample report card ------------------------------------------------- */
+/* --- Hero quote form ---------------------------------------------------- */
 
-.report {
+.hero__form {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 22px;
+  padding: 24px;
   box-shadow: var(--shadow-float);
 }
 
 @media (min-width: 768px) {
-  .report {
+  .hero__form {
     padding: 28px;
   }
 }
 
-.report__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.report__loc {
-  font-size: 12px;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--muted);
-}
-
-.report__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.report__row:last-of-type {
-  border-bottom: 0;
-}
-
-.report__label {
-  font-size: 15px;
-  color: var(--slate);
-}
-
-.report__vals {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.report__value {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--blue);
-}
-
-.chip {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  white-space: nowrap;
-}
-
-.chip--warn {
-  color: var(--warn-text);
-  background: var(--warn-bg);
-}
-
-.chip--info {
-  color: #12588f;
-  background: var(--sky);
-}
-
-.report__rec {
-  margin-top: 14px;
-  background: var(--canvas);
-  border-radius: var(--radius);
-  padding: 16px 18px;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.report__rec svg {
-  flex-shrink: 0;
-  color: var(--blue);
-  margin-top: 2px;
+/* The form brings its own white card elsewhere; in this panel it is already
+   on white, so it sheds the second layer. */
+.hero__form .form {
+  background: transparent;
+  padding: 0;
 }
 
 /* --- Stats -------------------------------------------------------------- */

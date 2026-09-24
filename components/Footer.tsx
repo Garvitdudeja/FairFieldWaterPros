@@ -8,14 +8,14 @@ export function FinalCta() {
   return (
     <section className="cta">
       <div className="cta__inner">
-        <h2>Find out what&rsquo;s in your water</h2>
+        <h2>Tell us what you&rsquo;re seeing in your water</h2>
         <p>
-          An on-site test takes about twenty minutes and tells you what, if anything, needs
-          treating — with the numbers to back it up.
+          Describe it on the phone and we&rsquo;ll narrow it to the system that fixes it —
+          with the installed price and the annual running cost, in writing.
         </p>
         <div className="btn-row">
           <Link className="btn btn--onDark" href="/contact">
-            Request a water test
+            Get a quote
             <Arrow />
           </Link>
           <a className="btn btn--ghostOnDark" href={`tel:${site.phoneHref}`}>

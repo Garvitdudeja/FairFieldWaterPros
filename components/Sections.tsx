@@ -4,6 +4,7 @@ import {
   faqs,
   processSteps,
   reviews,
+  serviceArea,
   services,
   stats,
   symptoms,
@@ -48,17 +49,17 @@ export function Stats({ tone = "white" }: { tone?: "white" | "canvas" }) {
 }
 
 /** Service cards. Used on the Home page; each links through to Services. */
-export function Services() {
+export function Services({ tone = "white" }: { tone?: "white" | "canvas" }) {
   return (
-    <section className="section section--white">
+    <section className={`section section--${tone}`}>
       <div className="container">
         <p className="eyebrow">What we do</p>
         <h2 className="h2 mt-12">
-          Water Filtration, Softeners and Well Service for Fairfield County
+          Complete Water Filtration and Softening for Local Homes
         </h2>
         <p className="lead mt-16 max-ch">
-          Bedrock well or municipal line, the work starts with a test. These are the systems
-          that test usually points to.
+          Private well or municipal line, these are the systems that solve it — installed
+          together where a house needs more than one.
         </p>
 
         <div className="grid-3 mt-40">
@@ -120,12 +121,15 @@ export function ServicesDetailed() {
   );
 }
 
-export function Process() {
+export function Process({ tone = "canvas" }: { tone?: "white" | "canvas" }) {
   return (
-    <section className="section section--canvas">
+    <section className={`section section--${tone}`}>
       <div className="container">
         <p className="eyebrow">How it works</p>
-        <h2 className="h2 mt-12">From test to installation in three steps</h2>
+        <h2 className="h2 mt-12">From first call to installation in three steps</h2>
+        <p className="lead mt-16 max-ch">
+          No in-home sales appointment to get a price. Most of this happens on the phone.
+        </p>
 
         <div className="grid-3 mt-40">
           {processSteps.map((item) => (
@@ -141,9 +145,9 @@ export function Process() {
   );
 }
 
-export function WhyUs() {
+export function WhyUs({ tone = "white" }: { tone?: "white" | "canvas" }) {
   return (
-    <section className="section section--white">
+    <section className={`section section--${tone}`}>
       <div className="container">
         <p className="eyebrow">Why homeowners choose us</p>
         <h2 className="h2 mt-12">A straightforward way to buy water treatment</h2>
@@ -164,9 +168,9 @@ export function WhyUs() {
   );
 }
 
-export function Symptoms() {
+export function Symptoms({ tone = "canvas" }: { tone?: "white" | "canvas" }) {
   return (
-    <section className="section section--canvas">
+    <section className={`section section--${tone}`}>
       <div className="container">
         <p className="eyebrow">Symptoms and causes</p>
         <h2 className="h2 mt-12">What you&rsquo;re noticing, and what causes it</h2>
@@ -236,11 +240,8 @@ export function ServiceArea({ tone = "white" }: { tone?: "white" | "canvas" }) {
     <section className={`section section--${tone}`}>
       <div className="container">
         <p className="eyebrow">Service area</p>
-        <h2 className="h2 mt-12">Where we work</h2>
-        <p className="lead mt-16 max-ch">
-          All 23 towns in Fairfield County, Connecticut — from Greenwich and Stamford on the
-          shoreline up through Danbury, Ridgefield and Sherman.
-        </p>
+        <h2 className="h2 mt-12">{serviceArea.heading}</h2>
+        <p className="lead mt-16 max-ch">{serviceArea.intro}</p>
 
         <ul className="towns">
           {towns.map((town) => (
