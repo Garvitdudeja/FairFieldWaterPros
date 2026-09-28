@@ -19,13 +19,22 @@ export const runtime = "nodejs";
  */
 const ZOHO_ENDPOINT = "https://crm.zoho.com/crm/WebToLeadForm";
 
-const ZOHO_FORM_ID =
-  process.env.ZOHO_FORM_ID ??
-  "b61cb58c9e4cbc0c81b4a6a57976c78a62bfd1a17467a4f31769cbac912a4f22";
+/** Blank counts as unset — an environment variable that exists but is empty
+ *  would otherwise send Zoho an empty form id and lose every lead. */
+function envOr(raw: string | undefined, fallback: string): string {
+  const value = raw?.trim();
+  return value ? value : fallback;
+}
 
-const ZOHO_FORM_KEY =
-  process.env.ZOHO_FORM_KEY ??
-  "791bcbde901b8c767acb96dd5946f14481c894e9f30a2ae2b113b7041aed7ad758e719e0db80acc2e23e3b0db217e744";
+const ZOHO_FORM_ID = envOr(
+  process.env.ZOHO_FORM_ID,
+  "b61cb58c9e4cbc0c81b4a6a57976c78a62bfd1a17467a4f31769cbac912a4f22",
+);
+
+const ZOHO_FORM_KEY = envOr(
+  process.env.ZOHO_FORM_KEY,
+  "791bcbde901b8c767acb96dd5946f14481c894e9f30a2ae2b113b7041aed7ad758e719e0db80acc2e23e3b0db217e744",
+);
 
 type LeadPayload = {
   name?: unknown;

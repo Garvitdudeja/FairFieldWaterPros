@@ -54,6 +54,35 @@ export type Faq = {
   answer: string;
 };
 
+const FALLBACK_URL = "https://www.fairfieldcountywaterpros.com";
+
+/**
+ * Work out the site's own address from NEXT_PUBLIC_SITE_URL.
+ *
+ * This has to be defensive, because the value is typed into a hosting
+ * dashboard by hand and the build dies on a bad one — `new URL("")` throws,
+ * and the whole deploy fails with "Invalid URL". So:
+ *
+ *   - a variable that is missing, blank, or only spaces falls back
+ *     (`??` alone does NOT do this — a blank dashboard field sends "")
+ *   - "example.com" without a scheme gets https:// put in front
+ *   - anything still unparseable falls back rather than failing the build
+ *   - a trailing slash is removed, so `${site.url}/logo.jpg` can't become
+ *     a double slash
+ */
+function resolveSiteUrl(raw: string | undefined): string {
+  const value = raw?.trim();
+  if (!value) return FALLBACK_URL;
+
+  const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+
+  try {
+    return new URL(withScheme).toString().replace(/\/$/, "");
+  } catch {
+    return FALLBACK_URL;
+  }
+}
+
 export const site = {
   name: "Fairfield County Water Pros",
   /** Shown next to the badge in the header and footer. */
@@ -88,8 +117,12 @@ export const site = {
   phoneNote:
     "Most questions get settled in one call — including what a system would cost.",
 
-  /** Set NEXT_PUBLIC_SITE_URL in Vercel once you have a domain. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fairfieldcountywaterpros.com",
+  /**
+   * Set NEXT_PUBLIC_SITE_URL in your host's environment variables once you
+   * have a domain. Leave it unset rather than blank if you don't — either
+   * works now, but unset is clearer.
+   */
+  url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
 } as const;
 
 /** The main navigation, in order. Used by the header and the footer. */
