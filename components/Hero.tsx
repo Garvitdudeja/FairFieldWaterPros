@@ -51,7 +51,7 @@ export default function Hero() {
             Send us the basics and we&rsquo;ll call you back, usually the same business day.
           </p>
           <div className="mt-24">
-            <LeadForm />
+            <LeadForm compact />
           </div>
         </div>
       </div>

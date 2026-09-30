@@ -156,12 +156,29 @@ export const nav = [
 ];
 
 /**
- * The "Water source" choices in the contact form.
+ * ---------------------------------------------------------------------------
+ * The dropdown choices in the quote form.
  *
- * These must match the options on the "Water Source" field in Zoho CRM
- * word for word. If they don't, the answer arrives blank on the lead.
+ * Every one of these must match the matching picklist in Zoho CRM word for
+ * word. If a value doesn't match, that answer arrives blank on the lead.
+ *
+ *   waterSources  -> "Water Source"  (LEADCF1)
+ *   serviceTypes  -> "Service Type"  (LEADCF7)
+ *   basementTypes -> "Basement type" (LEADCF9)
+ *
+ * If you change a picklist in Zoho, change it here too.
+ * ---------------------------------------------------------------------------
  */
 export const waterSources = ["Private well", "City water", "Not sure"] as const;
+
+export const serviceTypes = [
+  "Whole-Home Point-of-Entry System",
+  "Reverse Osmosis Point-of-Use System",
+  "Carbon Filtration System",
+  "Water Softening System",
+] as const;
+
+export const basementTypes = ["Basement", "Crawl Space", "Slab"] as const;
 
 export const services: Service[] = [
   {
