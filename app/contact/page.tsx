@@ -83,7 +83,7 @@ export default function ContactPage() {
                     {postalCode ? ` ${postalCode}` : ""}
                     <br />
                     <span className="contact__area">
-                      Serving Fairfield County &amp; surrounding towns
+                      Serving homes across Connecticut
                     </span>
                   </span>
                 </span>

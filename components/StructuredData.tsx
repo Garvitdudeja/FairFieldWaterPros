@@ -1,4 +1,4 @@
-import { services, site, towns } from "@/lib/site";
+import { services, site } from "@/lib/site";
 
 /**
  * LocalBusiness schema. This is what puts the phone number, hours, service
@@ -41,14 +41,13 @@ export default function StructuredData() {
         closes: site.openingHours.closes,
       },
     ],
-    areaServed: towns.map((town) => ({
-      "@type": "City",
-      name: town,
-      containedInPlace: {
-        "@type": "AdministrativeArea",
-        name: "Fairfield County, Connecticut",
-      },
-    })),
+    // Stated at the state level, matching what the site tells visitors.
+    // Listing individual towns here while the page says "Connecticut" would
+    // be sending Google a narrower answer than the one customers read.
+    areaServed: {
+      "@type": "State",
+      name: "Connecticut",
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Water treatment services",

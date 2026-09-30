@@ -3,7 +3,7 @@
  * EDIT THIS FILE FIRST.
  *
  * Almost everything you will want to change about the site lives here:
- * phone number, address, services, towns, reviews, FAQs. Change a value,
+ * phone number, address, services, reviews, FAQs. Change a value,
  * save, and the pages update. You should not need to touch the components.
  *
  * Anything marked TODO is a blank you need to fill in. Blanks are hidden
@@ -90,7 +90,7 @@ export const site = {
   wordmarkBottom: "Water Pros",
 
   tagline:
-    "Whole-home water filtration, softeners and reverse osmosis drinking water systems for homes across Fairfield County and the surrounding area.",
+    "Whole-home water filtration, softeners and reverse osmosis drinking water systems for homes across Connecticut.",
 
   // `phone` is what people read. `phoneHref` is what the link dials —
   // it must be digits only, with +1 in front, no spaces or brackets.
@@ -98,8 +98,8 @@ export const site = {
   // These must match your Google Business Profile and Zoho Bookings page
   // character for character. Google cross-checks them; a mismatch costs you
   // local ranking.
-  phone: "(203) 231-8166",
-  phoneHref: "+12032318166",
+  phone: "(475) 374-6936",
+  phoneHref: "+14753746936",
 
   email: "service@fairfieldcountywaterpros.com",
 
@@ -270,8 +270,8 @@ export const processSteps = [
  */
 export const whyUs = [
   {
-    title: "Builders before we were water people",
-    body: "Twenty years building homes in this area. We know how a house is plumbed before anyone opens a wall.",
+    title: "Family owned and run",
+    body: "An independent family business — not a franchise, and not a national chain routing you through a call center.",
   },
   {
     title: "Straight answers on the phone",
@@ -287,7 +287,7 @@ export const whyUs = [
   },
   {
     title: "Local and licensed",
-    body: "Fairfield County and the surrounding towns, fully insured, with the paperwork available up front.",
+    body: "Based in Shelton and working across Connecticut, fully insured, with the paperwork available up front.",
   },
   {
     title: "We service what we install",
@@ -329,11 +329,14 @@ export const stats: Stat[] = [
   { value: "", label: "Systems installed" },
 ];
 
-/** Where we work. The towns list below is the core of it. */
+/**
+ * Where we work. Stated at the state level on purpose — we don't list
+ * individual towns, so nobody rules themselves out for not being on a list.
+ */
 export const serviceArea = {
-  heading: "Fairfield County and the surrounding towns",
+  heading: "Serving Connecticut",
   intro:
-    "We cover all of Fairfield County, Connecticut, and the neighboring towns just past the county line. If you're nearby and don't see your town here, call and ask — the answer is usually yes.",
+    "We install and service water treatment systems for homes across Connecticut. Call and tell us where you are — if we cover it, we'll say so on the spot.",
 };
 
 export const symptoms: SymptomRow[] = [
@@ -431,39 +434,6 @@ export const reviews: Review[] = [
   //   town: "Ridgefield",
   //   service: "Softener + whole-home carbon",
   // },
-];
-
-/**
- * All 23 towns in Fairfield County, plus room for the surrounding ones.
- *
- * TODO: add the towns you cover outside the county — Oxford, Seymour,
- * Naugatuck, Woodbury and so on — and trim any Fairfield County town you
- * don't actually travel to.
- */
-export const towns = [
-  "Bethel",
-  "Bridgeport",
-  "Brookfield",
-  "Danbury",
-  "Darien",
-  "Easton",
-  "Fairfield",
-  "Greenwich",
-  "Monroe",
-  "New Canaan",
-  "New Fairfield",
-  "Newtown",
-  "Norwalk",
-  "Redding",
-  "Ridgefield",
-  "Shelton",
-  "Sherman",
-  "Stamford",
-  "Stratford",
-  "Trumbull",
-  "Weston",
-  "Westport",
-  "Wilton",
 ];
 
 /** Equipment brands you carry. Empty by default so no logo row ships blank. */

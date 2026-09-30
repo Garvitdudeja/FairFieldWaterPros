@@ -8,7 +8,6 @@ import {
   services,
   stats,
   symptoms,
-  towns,
   whyUs,
 } from "@/lib/site";
 import { ICONS, Arrow, Check } from "./Icons";
@@ -55,7 +54,7 @@ export function Services({ tone = "white" }: { tone?: "white" | "canvas" }) {
       <div className="container">
         <p className="eyebrow">What we do</p>
         <h2 className="h2 mt-12">
-          Complete Water Filtration and Softening for Local Homes
+          Complete Water Filtration and Softening Systems
         </h2>
         <p className="lead mt-16 max-ch">
           Private well or municipal line, these are the systems that solve it — installed
@@ -242,14 +241,6 @@ export function ServiceArea({ tone = "white" }: { tone?: "white" | "canvas" }) {
         <p className="eyebrow">Service area</p>
         <h2 className="h2 mt-12">{serviceArea.heading}</h2>
         <p className="lead mt-16 max-ch">{serviceArea.intro}</p>
-
-        <ul className="towns">
-          {towns.map((town) => (
-            <li className="town" key={town}>
-              {town}
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

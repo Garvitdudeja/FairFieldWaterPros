@@ -11,12 +11,12 @@ export default function Hero() {
           <p className="hero__flag">
             <span className="dot" />
             <span className="eyebrow">
-              Fairfield County, {site.address.region} &amp; surrounding towns
+              Serving homes across Connecticut
             </span>
           </p>
 
           <h1 className="h1 mt-16">
-            Water Filtration &amp; Softener Systems for Local Homes
+            Water Filtration &amp; Softener Systems for Connecticut Homes
           </h1>
 
           <p className="lead mt-24 max-ch">

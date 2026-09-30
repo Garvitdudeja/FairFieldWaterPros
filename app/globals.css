@@ -295,11 +295,13 @@ img {
      measures --container at desktop widths. */
   max-width: calc(var(--container) + var(--gutter) * 2);
   margin: 0 auto;
-  padding: 12px var(--gutter);
+  /* No bottom padding on mobile — the nav row below sits flush against the
+     header's own bottom border. Restored at 900px, where the nav moves up
+     onto this row. */
+  padding: 10px var(--gutter) 0;
   display: flex;
   align-items: center;
-  gap: 24px;
-  /* Below 900px the nav drops to its own row underneath. */
+  gap: 12px;
   flex-wrap: wrap;
 }
 
@@ -344,29 +346,25 @@ img {
   line-height: 1.2;
 }
 
-/* Mobile: a full-width second row under the brand. Only four links, so this
-   is easier to use than a hamburger and needs no JavaScript. */
+/* Mobile: a full-width tab bar on its own row under the brand. Four short
+   links divide the width evenly, so there's nothing to scroll and no
+   hamburger to open. */
 .nav {
   order: 3;
   width: 100%;
   display: flex;
-  align-items: center;
-  gap: 4px;
+  align-items: stretch;
   margin: 0 calc(var(--gutter) * -1);
   padding: 0 var(--gutter);
   border-top: 1px solid var(--border);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.nav::-webkit-scrollbar {
-  display: none;
 }
 
 .nav a {
-  font-size: 14px;
+  flex: 1 1 0;
+  text-align: center;
+  font-size: 13px;
   color: var(--slate);
-  padding: 12px 10px;
+  padding: 11px 4px;
   white-space: nowrap;
   border-bottom: 2px solid transparent;
 }
@@ -391,24 +389,66 @@ img {
   color: var(--navy);
 }
 
+/* Hidden on mobile. Row one can't fit the brand, a call button and this —
+   and Contact is already one tap away in the nav below. */
 .header__cta {
+  display: none;
   min-height: 42px;
   padding: 10px 16px;
   font-size: 14px;
 }
 
+/* The mobile call to action. This business sells over the phone, so on a
+   phone the header's one button should dial it. */
 .header__call {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--border);
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 15px;
   border-radius: var(--radius);
-  color: var(--navy);
+  background: var(--navy);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: var(--shadow-btn);
 }
 
+.header__call:hover {
+  background: #14304f;
+  color: var(--white);
+}
+
+/* Very narrow phones (360px and under). The wordmark is the widest thing in
+   row one, so it gives up a little size before anything wraps. */
+@media (max-width: 380px) {
+  .brand__badge {
+    width: 40px;
+    height: 40px;
+  }
+  .brand__top {
+    font-size: 9px;
+    letter-spacing: 0.11em;
+  }
+  .brand__bottom {
+    font-size: 16px;
+  }
+  .header__call {
+    padding: 9px 12px;
+  }
+  .nav a {
+    font-size: 12px;
+    padding: 11px 2px;
+  }
+}
+
+/* Desktop: everything collapses back onto a single row. */
 @media (min-width: 900px) {
+  .header__inner {
+    padding: 12px var(--gutter);
+    gap: 24px;
+  }
   .nav {
     order: 0;
     width: auto;
@@ -417,9 +457,11 @@ img {
     margin: 0;
     padding: 0;
     border-top: 0;
-    overflow: visible;
   }
   .nav a {
+    flex: 0 0 auto;
+    font-size: 14px;
+    text-align: left;
     padding: 0;
     border-bottom: 0;
   }
@@ -428,6 +470,9 @@ img {
   }
   .header__phone {
     display: inline;
+  }
+  .header__cta {
+    display: inline-flex;
   }
   .header__call {
     display: none;
@@ -888,26 +933,6 @@ img {
   margin-top: 2px;
   font-size: 13px;
   color: var(--muted);
-}
-
-/* --- Towns -------------------------------------------------------------- */
-
-.towns {
-  margin: 24px 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.town {
-  padding: 8px 16px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  font-size: 14px;
-  color: var(--slate);
 }
 
 /* --- Final CTA ---------------------------------------------------------- */

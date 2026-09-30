@@ -17,7 +17,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="Water Treatment Services"
         path="/services"
-        intro="Whole home filtration, softeners, carbon systems and reverse osmosis drinking water — for private wells and city water across Fairfield County and the surrounding towns."
+        intro="Whole home filtration, softeners, carbon systems and reverse osmosis drinking water — for private wells and city water in homes across Connecticut."
       />
       <ServicesDetailed />
       <Symptoms />

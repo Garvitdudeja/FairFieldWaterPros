@@ -48,12 +48,15 @@ export default function Header() {
           <a className="header__phone" href={`tel:${site.phoneHref}`}>
             {site.phone}
           </a>
+          {/* Mobile only. The "Request a quote" button is hidden at this
+              width, so this is the header's single call to action. */}
           <a
             className="header__call"
             href={`tel:${site.phoneHref}`}
             aria-label={`Call ${site.name}`}
           >
             <Phone />
+            <span>Call</span>
           </a>
           <Link className="btn btn--primary header__cta" href="/contact">
             Request a quote

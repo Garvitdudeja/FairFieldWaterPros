@@ -78,7 +78,7 @@ export default function LeadForm() {
           type="tel"
           inputMode="tel"
           autoComplete="tel"
-          placeholder="(203) 555-0100"
+          placeholder="(475) 555-0100"
           required
         />
       </div>
