@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/logo.jpg";
+// 128px badge, not the full-size logo.jpg — this renders at 52px.
+import logo from "@/public/logo-badge.png";
 import { nav, services, site } from "@/lib/site";
 import { Arrow } from "./Icons";
 
@@ -29,7 +30,6 @@ export function FinalCta() {
 
 export default function Footer() {
   const { street, locality, region, postalCode } = site.address;
-  const hasAddress = Boolean(street && locality);
   const year = new Date().getFullYear();
 
   return (
@@ -49,11 +49,16 @@ export default function Footer() {
 
             <p className="mt-16">{site.tagline}</p>
 
-            {hasAddress && (
+            {locality && (
               <p className="mt-16">
-                {street}
-                <br />
-                {locality}, {region} {postalCode}
+                {street && (
+                  <>
+                    {street}
+                    <br />
+                  </>
+                )}
+                {locality}, {region}
+                {postalCode ? ` ${postalCode}` : ""}
               </p>
             )}
           </div>

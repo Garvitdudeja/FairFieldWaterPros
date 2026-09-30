@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logo from "@/public/logo.jpg";
+// 128px badge, not the full-size logo.jpg — this renders at 44px.
+import logo from "@/public/logo-badge.png";
 import { nav, site } from "@/lib/site";
 import { Arrow, Phone } from "./Icons";
 

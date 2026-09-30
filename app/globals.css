@@ -189,8 +189,10 @@ img {
   color: var(--slate);
 }
 
+/* System monospace only. Not worth a webfont download for the handful of
+   places this is used. */
 .mono {
-  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 /* --- Buttons ------------------------------------------------------------ */
@@ -1363,6 +1365,11 @@ img {
 
 a.contact__value:hover {
   color: var(--blue);
+}
+
+.contact__area {
+  font-size: 14px;
+  color: var(--muted);
 }
 
 .contact__form {

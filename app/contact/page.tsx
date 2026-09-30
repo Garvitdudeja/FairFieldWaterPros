@@ -13,13 +13,14 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const { street, locality, region, postalCode } = site.address;
-  const hasAddress = Boolean(street && locality);
+  const hasStreet = Boolean(street);
 
   return (
     <>
       <PageHeader
         eyebrow="Contact"
         title="Contact Us"
+        path="/contact"
         intro="Tell us what you're seeing in your water and we'll talk you through the options. Most of the time we can narrow it down and give you a price over the phone."
       />
 
@@ -70,17 +71,20 @@ export default function ContactPage() {
                   <Pin />
                 </span>
                 <span>
-                  <span className="contact__label">Service area</span>
+                  <span className="contact__label">Based in</span>
                   <span className="contact__value">
-                    {hasAddress ? (
+                    {hasStreet && (
                       <>
                         {street}
                         <br />
-                        {locality}, {region} {postalCode}
                       </>
-                    ) : (
-                      <>Fairfield County, {region} &amp; surrounding towns</>
                     )}
+                    {locality ? `${locality}, ${region}` : region}
+                    {postalCode ? ` ${postalCode}` : ""}
+                    <br />
+                    <span className="contact__area">
+                      Serving Fairfield County &amp; surrounding towns
+                    </span>
                   </span>
                 </span>
               </li>

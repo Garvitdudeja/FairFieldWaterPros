@@ -92,26 +92,48 @@ export const site = {
   tagline:
     "Whole-home water filtration, softeners and reverse osmosis drinking water systems for homes across Fairfield County and the surrounding area.",
 
-  // TODO: your real phone number.
   // `phone` is what people read. `phoneHref` is what the link dials —
   // it must be digits only, with +1 in front, no spaces or brackets.
-  phone: "(203) 000-0000",
-  phoneHref: "+12030000000",
+  //
+  // These must match your Google Business Profile and Zoho Bookings page
+  // character for character. Google cross-checks them; a mismatch costs you
+  // local ranking.
+  phone: "(203) 231-8166",
+  phoneHref: "+12032318166",
 
-  // TODO: your real email address.
-  email: "hello@fairfieldcountywaterpros.com",
+  email: "service@fairfieldcountywaterpros.com",
 
-  // TODO: your real business address. Leave blank and it is hidden.
+  // TODO: add `street` and `postalCode` if you want the full address shown
+  // and in the search listing. Locality alone is safe to publish and still
+  // helps local ranking.
   address: {
     street: "",
-    locality: "",
+    locality: "Shelton",
     region: "CT",
     postalCode: "",
   },
 
-  // TODO: your hours and CT license number. Blank values are hidden.
+  // TODO: your CT license number. Blank values are hidden.
   hours: "Mon–Sat, 7am–7pm",
   license: "",
+
+  /**
+   * The same hours in the format search engines read. Keep in step with
+   * `hours` above. Days are Monday…Sunday; times are 24-hour.
+   */
+  openingHours: {
+    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "07:00",
+    closes: "19:00",
+  },
+
+  /**
+   * TODO: paste the public URLs of your profiles — Google Business Profile,
+   * Facebook, Yelp, Angi. Google uses these to tie the website to the
+   * business listing, which is one of the stronger local ranking signals.
+   * Leave the array empty until you have real ones.
+   */
+  profiles: [] as string[],
 
   /** Shown on the Contact page. Set to "" to hide it. */
   phoneNote:

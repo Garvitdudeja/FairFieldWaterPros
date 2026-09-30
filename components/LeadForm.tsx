@@ -70,13 +70,15 @@ export default function LeadForm() {
 
       <div className="field">
         <label htmlFor="phone">Phone</label>
+        {/* The placeholder uses the reserved 555-01xx fictional range, so it
+            can't be mistaken for the business's own number. */}
         <input
           id="phone"
           name="phone"
           type="tel"
           inputMode="tel"
           autoComplete="tel"
-          placeholder="(203) 000-0000"
+          placeholder="(203) 555-0100"
           required
         />
       </div>

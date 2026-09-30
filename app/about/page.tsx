@@ -18,6 +18,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About us"
         title="About Fairfield County Water Pros"
+        path="/about"
         intro="A local family of builders who got into water treatment — installing filtration, softeners and drinking water systems across Fairfield County and the towns around it."
       />
 

@@ -1,23 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Schibsted_Grotesk } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-// Both are variable fonts, so no `weight` is passed — Next pulls the whole
-// 400–700 range we use and self-hosts it, which kills the layout shift you
-// get from a Google Fonts <link>.
+// A variable font, so no `weight` is passed — Next pulls the whole 400–700
+// range we use and self-hosts it, which kills the layout shift you get from
+// a Google Fonts <link>.
+//
+// This is the only webfont on the site. A second one (JetBrains Mono) used to
+// be loaded to set three two-digit step numbers; that wasn't worth a font
+// download, so `.mono` now falls back to the system monospace stack.
 const sans = Schibsted_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
   display: "swap",
 });
 
@@ -66,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={sans.variable}>
       <body>
         <a className="skip-link" href="#main">
           Skip to content
