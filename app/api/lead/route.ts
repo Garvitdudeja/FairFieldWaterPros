@@ -26,16 +26,17 @@ function envOr(raw: string | undefined, fallback: string): string {
   return value ? value : fallback;
 }
 
-// Regenerated in Zoho on 2026-10-01. The previous pair is dead — a lead sent
-// with the old values goes nowhere.
+// Regenerated in Zoho on 2026-10-01 (second revision that day). Every earlier
+// pair is dead — a lead sent with old values goes nowhere, and the visitor
+// still sees a success message. Re-paste these whenever the form is rebuilt.
 const ZOHO_FORM_ID = envOr(
   process.env.ZOHO_FORM_ID,
-  "a135bcb53adf550a3f6fc3c1ea2de00f7c20d2e4f9136a6875ff539983b14aae",
+  "ca60b984109afc78e4978d886a2205f8e04492a50deef679671f679e2c11ce3f",
 );
 
 const ZOHO_FORM_KEY = envOr(
   process.env.ZOHO_FORM_KEY,
-  "0cb10bfb219cd64ebe81945db2988f6ff70c30d2c22b1b6a1ea5a530b2038df8f030448e0e47c36e6d07986a2476c42e",
+  "c9e24b4e7b903951c904e19988acf1d5776a5e91fec37cf6b39ce2bde275f838df2bde629215104e64c00f4a479d1232",
 );
 
 type LeadPayload = {

@@ -9,12 +9,11 @@ type Status = "idle" | "sending" | "sent" | "error";
 /**
  * The quote form. Posts to /api/lead, which forwards it into Zoho CRM.
  *
- * `compact` drops the two qualifying dropdowns (service type, basement type).
- * The hero uses it so the form stays short where someone has only just landed;
- * the Contact page asks everything. Both are optional in Zoho, so a compact
- * submission is a complete lead either way.
+ * Every field in the Zoho web-to-lead form appears here, and identically in
+ * both places it's used (home hero and Contact page). Only Name and Phone are
+ * required; the rest reach Zoho as "-None-" when left alone.
  */
-export default function LeadForm({ compact = false }: { compact?: boolean }) {
+export default function LeadForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
   // Keeps the ids unique if this form ever appears twice on one page.
@@ -120,31 +119,27 @@ export default function LeadForm({ compact = false }: { compact?: boolean }) {
         </select>
       </div>
 
-      {!compact && (
-        <>
-          <div className="field">
-            <label htmlFor={id("serviceType")}>What are you after?</label>
-            {/* An empty value reaches Zoho as "-None-", so nobody has to
-                guess at a system before they've spoken to anyone. */}
-            <select id={id("serviceType")} name="serviceType" defaultValue="">
-              <option value="">Not sure yet</option>
-              {serviceTypes.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          </div>
+      <div className="field">
+        <label htmlFor={id("serviceType")}>What are you after?</label>
+        {/* An empty value reaches Zoho as "-None-", so nobody has to guess at
+            a system before they've spoken to anyone. */}
+        <select id={id("serviceType")} name="serviceType" defaultValue="">
+          <option value="">Not sure yet</option>
+          {serviceTypes.map((option) => (
+            <option key={option}>{option}</option>
+          ))}
+        </select>
+      </div>
 
-          <div className="field">
-            <label htmlFor={id("basementType")}>Basement type</label>
-            <select id={id("basementType")} name="basementType" defaultValue="">
-              <option value="">Not sure</option>
-              {basementTypes.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </select>
-          </div>
-        </>
-      )}
+      <div className="field">
+        <label htmlFor={id("basementType")}>Basement type</label>
+        <select id={id("basementType")} name="basementType" defaultValue="">
+          <option value="">Not sure</option>
+          {basementTypes.map((option) => (
+            <option key={option}>{option}</option>
+          ))}
+        </select>
+      </div>
 
       {/* Spam trap — hidden from people, tempting to bots. */}
       <div className="hp" aria-hidden="true">
