@@ -140,6 +140,12 @@ export const site = {
     "Most questions get settled in one call — including what a system would cost.",
 
   /**
+   * Google Analytics 4 measurement ID. Set this to "" to turn tracking off
+   * entirely — nothing loads and no cookies are set when it's blank.
+   */
+  analyticsId: "G-QN48YKJ5RV",
+
+  /**
    * Set NEXT_PUBLIC_SITE_URL in your host's environment variables once you
    * have a domain. Leave it unset rather than blank if you don't — either
    * works now, but unset is clearer.
