@@ -2,62 +2,113 @@
 
 import { useId, useState, type FormEvent } from "react";
 import { basementTypes, serviceTypes, waterSources } from "@/lib/site";
+import { captchaUrl, zoho } from "@/lib/zoho";
 import { Check } from "./Icons";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
 /**
- * The quote form. Posts to /api/lead, which forwards it into Zoho CRM.
+ * The quote form, posting straight to Zoho's web-to-lead endpoint from the
+ * visitor's browser — the same request Zoho's own snippet makes.
  *
- * Every field in the Zoho web-to-lead form appears here, and identically in
- * both places it's used (home hero and Contact page). Only Name and Phone are
- * required; the rest reach Zoho as "-None-" when left alone.
+ * It has to be the browser rather than our server: Zoho ties the captcha
+ * answer to a session cookie set when the captcha image loads, so only the
+ * browser that loaded the image can submit a valid answer.
+ *
+ * Every `name` below is Zoho's and must match the web form exactly. Change
+ * one and that answer arrives blank on the lead, or the lead is rejected.
  */
 export default function LeadForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
+  // Bumping this reloads the captcha image with a fresh puzzle.
+  const [captchaNonce, setCaptchaNonce] = useState(() => Date.now());
+
   // Keeps the ids unique if this form ever appears twice on one page.
   const uid = useId();
   const id = (field: string) => `${uid}-${field}`;
 
+  function reloadCaptcha() {
+    setCaptchaNonce(Date.now());
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("sending");
     setError("");
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const read = (field: string) => String(formData.get(field) ?? "").trim();
 
-    const payload = {
-      name: read("name"),
-      phone: read("phone"),
-      source: read("source"),
-      location: read("location"),
-      serviceType: read("serviceType"),
-      basementType: read("basementType"),
-      // Honeypot: real people leave this empty because they never see it.
-      company: read("company"),
-    };
-
-    if (!payload.name || !payload.phone) {
-      setStatus("error");
-      setError("Please add your name and a phone number so we can call you back.");
+    // Bots fill the hidden field. Pretend it worked and send nothing.
+    if (read("aG9uZXlwb3Q")) {
+      setStatus("sent");
       return;
     }
 
+    const required: ReadonlyArray<readonly [string, string]> = [
+      ["First Name", "your first name"],
+      ["Last Name", "your last name"],
+      ["Email", "an email address"],
+      ["Phone", "a phone number"],
+      ["Address - City", "your town"],
+      ["LEADCF1", "your water source"],
+      ["LEADCF9", "your basement type"],
+      ["enterdigest", "the characters from the image"],
+    ];
+
+    const missing = required.find(([field]) => !read(field));
+
+    if (missing) {
+      setStatus("error");
+      setError(`Please add ${missing[1]}.`);
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(read("Email"))) {
+      setStatus("error");
+      setError("That email address doesn't look right. Please check it.");
+      return;
+    }
+
+    setStatus("sending");
+
     try {
-      const response = await fetch("/api/lead", {
+      // No `credentials` option, matching Zoho's own snippet — adding one
+      // would fail CORS outright rather than help.
+      const response = await fetch(zoho.endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: formData,
+        cache: "no-cache",
       });
 
-      if (!response.ok) throw new Error("Request failed");
+      const contentType = response.headers.get("Content-Type") ?? "";
+      const data = contentType.includes("application/json")
+        ? await response.json()
+        : await response.text();
+
+      const asText = typeof data === "string" ? data : JSON.stringify(data);
+
+      if (/invalidCaptcha|captcha_error/i.test(asText)) {
+        setStatus("error");
+        setError("That captcha didn't match. Please try the new image.");
+        reloadCaptcha();
+        form.querySelector<HTMLInputElement>('[name="enterdigest"]')?.focus();
+        return;
+      }
+
+      if (/error_msg/i.test(asText)) {
+        setStatus("error");
+        setError("Something went wrong on our end. Please call us instead — we'll pick up.");
+        reloadCaptcha();
+        return;
+      }
 
       setStatus("sent");
     } catch {
       setStatus("error");
       setError("Something went wrong on our end. Please call us instead — we'll pick up.");
+      reloadCaptcha();
     }
   }
 
@@ -78,75 +129,161 @@ export default function LeadForm() {
 
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
-      <div className="field">
-        <label htmlFor={id("name")}>Name</label>
-        <input id={id("name")} name="name" type="text" autoComplete="name" required />
+      {/* Zoho's own hidden fields. Without these the lead is rejected. */}
+      <input type="hidden" name="xnQsjsdp" value={zoho.formId} readOnly />
+      <input type="hidden" name="xmIwtLD" value={zoho.formKey} readOnly />
+      <input type="hidden" name="actionType" value={zoho.actionType} readOnly />
+      <input type="hidden" name="returnURL" value="null" readOnly />
+      <input type="hidden" name="Lead Source" value={zoho.leadSource} readOnly />
+
+      <div className="field-pair">
+        <div className="field">
+          <label htmlFor={id("firstName")}>First name</label>
+          <input
+            id={id("firstName")}
+            name="First Name"
+            type="text"
+            autoComplete="given-name"
+            maxLength={40}
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor={id("lastName")}>Last name</label>
+          <input
+            id={id("lastName")}
+            name="Last Name"
+            type="text"
+            autoComplete="family-name"
+            maxLength={80}
+            required
+          />
+        </div>
       </div>
 
-      <div className="field">
-        <label htmlFor={id("phone")}>Phone</label>
-        {/* The placeholder uses the reserved 555-01xx fictional range, so it
-            can't be mistaken for the business's own number. */}
+      <div className="field-pair">
+        <div className="field">
+          <label htmlFor={id("email")}>Email</label>
+          <input
+            id={id("email")}
+            name="Email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            maxLength={100}
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor={id("phone")}>Phone</label>
+          {/* The placeholder uses the reserved 555-01xx fictional range, so it
+              can't be mistaken for the business's own number. */}
+          <input
+            id={id("phone")}
+            name="Phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="(475) 555-0100"
+            maxLength={30}
+            required
+          />
+        </div>
+      </div>
+
+      <div className="field-pair">
+        <div className="field">
+          <label htmlFor={id("city")}>Town</label>
+          <input
+            id={id("city")}
+            name="Address - City"
+            type="text"
+            autoComplete="address-level2"
+            placeholder="Shelton"
+            maxLength={255}
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor={id("source")}>Water source</label>
+          {/* Required in Zoho, so it opens unanswered rather than defaulting
+              to a guess that would land in the CRM as fact. */}
+          <select id={id("source")} name="LEADCF1" defaultValue="" required>
+            <option value="" disabled>
+              Choose one…
+            </option>
+            {waterSources.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="field-pair">
+        <div className="field">
+          <label htmlFor={id("basementType")}>Basement type</label>
+          <select id={id("basementType")} name="LEADCF9" defaultValue="" required>
+            <option value="" disabled>
+              Choose one…
+            </option>
+            {basementTypes.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="field">
+          <label htmlFor={id("serviceType")}>
+            Interested in <span className="field__opt">optional</span>
+          </label>
+          <select id={id("serviceType")} name="LEADCF7" defaultValue="-None-">
+            <option value="-None-">Not sure yet</option>
+            {serviceTypes.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="field captcha">
+        <label htmlFor={id("captcha")}>Enter the characters shown</label>
+        <div className="captcha__row">
+          {/* Loading this image is what gives the browser the Zoho session
+              cookie the captcha answer is checked against. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="captcha__img"
+            src={captchaUrl(captchaNonce)}
+            alt="Captcha characters"
+            width={120}
+            height={40}
+          />
+          <button type="button" className="captcha__reload" onClick={reloadCaptcha}>
+            Reload
+          </button>
+        </div>
         <input
-          id={id("phone")}
-          name="phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          placeholder="(475) 555-0100"
+          id={id("captcha")}
+          name="enterdigest"
+          type="text"
+          autoComplete="off"
+          autoCapitalize="off"
+          autoCorrect="off"
+          spellCheck={false}
+          maxLength={10}
           required
         />
       </div>
 
-      <div className="field">
-        <label htmlFor={id("location")}>Town</label>
-        <input
-          id={id("location")}
-          name="location"
-          type="text"
-          autoComplete="address-level2"
-          placeholder="Shelton"
-          maxLength={255}
-        />
-      </div>
-
-      <div className="field">
-        <label htmlFor={id("source")}>Water source</label>
-        <select id={id("source")} name="source" defaultValue={waterSources[0]}>
-          {waterSources.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="field">
-        <label htmlFor={id("serviceType")}>What are you after?</label>
-        {/* An empty value reaches Zoho as "-None-", so nobody has to guess at
-            a system before they've spoken to anyone. */}
-        <select id={id("serviceType")} name="serviceType" defaultValue="">
-          <option value="">Not sure yet</option>
-          {serviceTypes.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="field">
-        <label htmlFor={id("basementType")}>Basement type</label>
-        <select id={id("basementType")} name="basementType" defaultValue="">
-          <option value="">Not sure</option>
-          {basementTypes.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Spam trap — hidden from people, tempting to bots. */}
+      {/* Spam trap — Zoho's own honeypot field name. */}
       <div className="hp" aria-hidden="true">
         <label htmlFor={id("company")}>Company</label>
         <input
           id={id("company")}
-          name="company"
+          name="aG9uZXlwb3Q"
           type="text"
           tabIndex={-1}
           autoComplete="off"

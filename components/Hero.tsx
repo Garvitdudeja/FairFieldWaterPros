@@ -48,9 +48,9 @@ export default function Hero() {
         <div className="hero__form">
           <h2 className="h3">Get a quote</h2>
           <p className="card__body">
-            Send us the basics and we&rsquo;ll call you back, usually the same business day.
+            We&rsquo;ll call you back the same business day.
           </p>
-          <div className="mt-24">
+          <div className="mt-16">
             <LeadForm />
           </div>
         </div>
