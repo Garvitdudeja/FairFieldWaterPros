@@ -4,6 +4,7 @@ import Link from "next/link";
 import logo from "@/public/logo-badge.png";
 import { nav, services, site } from "@/lib/site";
 import { Arrow, Facebook, Instagram } from "./Icons";
+import Newsletter from "./Newsletter";
 
 export function FinalCta() {
   return (
@@ -35,6 +36,8 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__inner">
+        <Newsletter />
+
         <div className="footer__cols">
           <div>
             <div className="brand">
