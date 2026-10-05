@@ -113,9 +113,16 @@ export const site = {
     postalCode: "",
   },
 
-  // TODO: your CT license number. Blank values are hidden.
+  // CT Home Improvement Contractor registration. Blank values are hidden.
   hours: "Mon–Sat, 7am–7pm",
-  license: "",
+  license: "HIC.0707091",
+
+  // TODO: paste the Facebook and Instagram page URLs. Until then the footer
+  // icons show but link nowhere.
+  social: {
+    facebook: "",
+    instagram: "",
+  },
 
   /**
    * The same hours in the format search engines read. Keep in step with

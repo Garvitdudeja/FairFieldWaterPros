@@ -133,6 +133,24 @@ export function Check(props: IconProps) {
   );
 }
 
+export function Facebook(props: IconProps) {
+  return (
+    <Base size={20} strokeWidth={1.7} {...props}>
+      <path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z" />
+    </Base>
+  );
+}
+
+export function Instagram(props: IconProps) {
+  return (
+    <Base size={20} strokeWidth={1.7} {...props}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17" cy="7" r="0.6" fill="currentColor" />
+    </Base>
+  );
+}
+
 export const ICONS = {
   droplet: Droplet,
   funnel: Funnel,

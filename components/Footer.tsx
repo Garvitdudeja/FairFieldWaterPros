@@ -3,7 +3,7 @@ import Link from "next/link";
 // 128px badge, not the full-size logo.jpg — this renders at 52px.
 import logo from "@/public/logo-badge.png";
 import { nav, services, site } from "@/lib/site";
-import { Arrow } from "./Icons";
+import { Arrow, Facebook, Instagram } from "./Icons";
 
 export function FinalCta() {
   return (
@@ -101,10 +101,19 @@ export default function Footer() {
               )}
               {site.license && (
                 <li>
-                  <span>CT license #{site.license}</span>
+                  <span>CT Reg. {site.license}</span>
                 </li>
               )}
             </ul>
+
+            <div className="footer__social">
+              <a href={site.social.facebook || "#"} aria-label="Facebook">
+                <Facebook />
+              </a>
+              <a href={site.social.instagram || "#"} aria-label="Instagram">
+                <Instagram />
+              </a>
+            </div>
           </div>
         </div>
 

@@ -93,7 +93,7 @@ export default function ContactPage() {
             {site.phoneNote && <p className="notice mt-32">{site.phoneNote}</p>}
 
             {site.license && (
-              <p className="form__note mt-16">CT license #{site.license}</p>
+              <p className="form__note mt-16">CT Reg. {site.license}</p>
             )}
           </div>
 
