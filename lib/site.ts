@@ -185,6 +185,7 @@ export const nav = [
 export const waterSources = ["Private well", "City water", "Not sure"] as const;
 
 export const serviceTypes = [
+  "Not sure yet",
   "Whole-Home Point-of-Entry System",
   "Reverse Osmosis Point-of-Use System",
   "Carbon Filtration System",

@@ -240,7 +240,6 @@ export default function LeadForm() {
             Interested in <span className="field__opt">optional</span>
           </label>
           <select id={id("serviceType")} name="LEADCF7" defaultValue="-None-">
-            <option value="-None-">Not sure yet</option>
             {serviceTypes.map((option) => (
               <option key={option}>{option}</option>
             ))}
